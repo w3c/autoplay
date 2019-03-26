@@ -101,53 +101,15 @@ video.muted = !video.canAutoplay;
 video.play();
 ```
 
-### Promise based API that returns an object
-
-An alternate design is for a promise based API that returns an object. AutoplayPolicyType here is an enum of the different policies defined above. In this design, a site would call getAutoplayPolicy the first time to get the object and then the object will be updated. This has the advantage that the browser does not need to determine the autoplay policy until getAutoplayPolicy is called. This design has the advantage that is allows the website to warm up the code path and avoid delays due to asynchronousity if they want to.
-
-```javascript
-interface AutoplayPolicy : EventTarget {
-  readonly attribute AutoplayPolicyType type;
-  attribute EventHandler onchange;
-};
-
-partial interface Document {
-  readonly attribute Promise<AutoplayPolicy> getAutoplayPolicy;
-};
-
-partial interface HTMLMediaElement {
-  Promise<boolean> canAutoplay(); 
-};
-```
-
-The first example from above using this design would be as follows:
-
-```javascript
-let policy = await document.getAutoplayPolicy();
-
-if (policy.type == “allowed”) {
-  loadUnmutedVideo();
-} else {
-  loadMutedVideo();
-}
-```
-
-The second example from above using this design would be as follows:
-
-```javascript
-let policy = await document.getAutoplayPolicy();
-
-video.src = “video.webm”;
-video.muted = !await video.canAutoplay();
-video.play();
-```
-
 ### Event Listener Issue
 
-We received some feedback that if you have a bunch of videos on the page that are all listening to the autoplay policy which becomes allowed and they all start playing together.
-
-## Considered Alternatives
+We considered having an event listener to allow sites to listen to changes in autoplay policy. However, this may cause issues where there are multiple event listeners on a page that all start playing when the autoplay policy changes.
 
 ### Autoplay Permission
 
-We considered having autoplay as a permission. However, autoplay is not something the site should be able to request; instead autoplay should be something the browser applies to a site.
+We considered having autoplay as a permission. However, there are a few differences between the autoplay and permissions:
+
+ * Autoplay is something that is applied to the site from the browser; rather than something that should be requested
+ * Autoplay has multiple states (e.g. allowed, allowed-muted); rather than a yes or no
+ * Autoplay is not implemented by the user agents as a permission
+ * Permissions are async

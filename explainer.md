@@ -19,10 +19,10 @@ The API is defined as the following:
 
 ```javascript
 enum AutoplayPolicy {
-  “allowed”,
-  “allowed-muted”,
-  “disallowed”,
-  “unknown”
+  "allowed",
+  "allowed-muted",
+  "disallowed",
+  "unknown”
 };
 
 partial interface Document {
@@ -45,7 +45,7 @@ In this situation a site would like to change the source based on whether it wil
 ```javascript
 let policy = await document.getAutoplayPolicy();
 
-if (policy == “allowed”) {
+if (policy == "allowed") {
   loadUnmutedVideo();
 } else {
   loadMutedVideo();
@@ -59,7 +59,7 @@ In this situation a site would like to change its experience based on whether it
 ```javascript
 let policy = await document.getAutoplayPolicy();
 
-video.src = “video.webm”;
+video.src = "video.webm";
 video.muted = !await video.canAutoplay();
 video.play();
 ```
@@ -86,7 +86,7 @@ partial interface HTMLMediaElement {
 The first example from above using this design would be as follows:
 
 ```javascript
-if (document.autoplayPolicy == “allowed”) {
+if (document.autoplayPolicy == "allowed") {
   loadUnmutedVideo();
 } else {
   loadMutedVideo();
@@ -96,7 +96,7 @@ if (document.autoplayPolicy == “allowed”) {
 The second example from above using this design would be as follows:
 
 ```javascript
-video.src = “video.webm”;
+video.src = "video.webm";
 video.muted = !video.canAutoplay;
 video.play();
 ```

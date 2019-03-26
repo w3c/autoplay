@@ -21,8 +21,7 @@ The API is defined as the following:
 enum AutoplayPolicy {
   "allowed",
   "allowed-muted",
-  "disallowed",
-  "unknown”
+  "disallowed"
 };
 
 partial interface Document {

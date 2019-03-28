@@ -35,6 +35,8 @@ partial interface HTMLMediaElement {
 
 The API should be async because determining whether a site can autoplay can require cross-process communications to gather data such as website settings or user preferences. In this design the browser does not need to calculate the autoplay policy until getAutoplayPolicy is called. Being async also does not limit browser implementations of what determines autoplay policy.
 
+**There is strong disagreement over whether this API should be async or sync. For more details about the pros/cons please see this issue: https://github.com/WICG/autoplay/issues/7**
+
 ## Sample Code
 
 ### A site would like to change the source based on whether it will autoplay

@@ -1,0 +1,1024 @@
+<!doctype html><html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Autoplay Policy Detection</title>
+  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
+  <meta content="Bikeshed version 800b43329, updated Tue May 25 14:13:32 2021 -0700" name="generator">
+  <link href="http://example.com/url-this-spec-will-live-at" rel="canonical">
+  <meta content="bfce82f271f9dcb361ad476d1fa3d8480695d3c8" name="document-revision">
+<style>
+@media (prefers-color-scheme: light) {
+  :root {
+    --div-info-fg-color: #178217;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --div-info-fg-color: springgreen;
+  }
+}
+div.enum-description > table {
+	border-collapse: collapse;
+	border-top: 2px solid #707070;
+	border-bottom: 2px solid #707070;
+	width: 100%;
+	margin: 2em 0;
+}
+div.enum-description > table > tbody > tr > th,
+div.enum-description > table > tbody > tr > td {
+	padding: 0.2em 0.6em;
+	min-width: 150px;
+	border-top: 1px solid #ddd
+}
+div.enum-description > table > thead > tr > th {
+	line-height: 2em;
+	font-weight: 600;
+	color: var(--div-info-fg-color);
+	border-bottom: 1px solid #707070;
+}
+</style>
+<style>/* style-autolinks */
+
+.css.css, .property.property, .descriptor.descriptor {
+    color: var(--a-normal-text);
+    font-size: inherit;
+    font-family: inherit;
+}
+.css::before, .property::before, .descriptor::before {
+    content: "‘";
+}
+.css::after, .property::after, .descriptor::after {
+    content: "’";
+}
+.property, .descriptor {
+    /* Don't wrap property and descriptor names */
+    white-space: nowrap;
+}
+.type { /* CSS value <type> */
+    font-style: italic;
+}
+pre .property::before, pre .property::after {
+    content: "";
+}
+[data-link-type="property"]::before,
+[data-link-type="propdesc"]::before,
+[data-link-type="descriptor"]::before,
+[data-link-type="value"]::before,
+[data-link-type="function"]::before,
+[data-link-type="at-rule"]::before,
+[data-link-type="selector"]::before,
+[data-link-type="maybe"]::before {
+    content: "‘";
+}
+[data-link-type="property"]::after,
+[data-link-type="propdesc"]::after,
+[data-link-type="descriptor"]::after,
+[data-link-type="value"]::after,
+[data-link-type="function"]::after,
+[data-link-type="at-rule"]::after,
+[data-link-type="selector"]::after,
+[data-link-type="maybe"]::after {
+    content: "’";
+}
+
+[data-link-type].production::before,
+[data-link-type].production::after,
+.prod [data-link-type]::before,
+.prod [data-link-type]::after {
+    content: "";
+}
+
+[data-link-type=element],
+[data-link-type=element-attr] {
+    font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: .9em;
+}
+[data-link-type=element]::before { content: "<" }
+[data-link-type=element]::after  { content: ">" }
+
+[data-link-type=biblio] {
+    white-space: pre;
+}</style>
+<style>/* style-colors */
+
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #bbb;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #707070;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}</style>
+<style>/* style-counters */
+
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}</style>
+<style>/* style-dfn-panel */
+
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled { cursor: pointer; }
+</style>
+<style>/* style-md-lists */
+
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}</style>
+<style>/* style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* style-syntax-highlighting */
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+</style>
+<style>/* style-darkmode */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --unofficial-watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E");
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --amendment-border: #330099;
+        --amendment-bg: #080010;
+        --amendment-text: var(--text);
+        --amendmentheading-text: #cc00ff;
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
+ <body class="h-entry">
+  <div class="head">
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
+   <h1 class="p-name no-ref" id="title">Autoplay Policy Detection</h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-06-14">14 June 2021</time></span></h2>
+   <div data-fill-with="spec-metadata">
+    <dl>
+     <dt>This version:
+     <dd><a class="u-url" href="http://example.com/url-this-spec-will-live-at">http://example.com/url-this-spec-will-live-at</a>
+     <dt>Issue Tracking:
+     <dd><a href="https://github.com/alastor0325/autoplay/issues/">GitHub</a>
+     <dt class="editor">Editors:
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:alwu@mozilla.com">Alastor Wu</a> (<a class="p-org org" href="https://www.mozilla.org">Mozilla</a>)
+     <dd class="editor p-author h-card vcard"><span class="p-name fn">TBD</span>
+    </dl>
+   </div>
+   <div data-fill-with="warning"></div>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2021 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <hr title="Separator for header">
+  </div>
+  <div class="p-summary" data-fill-with="abstract">
+   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <p>This specification provides web developers the ability to detect if the autoplay media is allowed or not in the different level of perspective, either a <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document">Document</a></code> or a <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement">HTMLMediaElement</a></code>, at the current moment.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p> <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em> </p>
+   <p> Feedback and comments on this specification are welcome. <a href="https://github.com/alastor0325/autoplay/issues">GitHub Issues</a> are preferred for discussion on this specification. Alternatively, you can send comments to the Media Working Group’s mailing-list, <a href="mailto:public-media-wg@w3.org">public-media-wg@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-media-wg/">archives</a>).
+  This draft highlights some of the pending issues that are still to be discussed in the working group.
+  No decision has been taken on the outcome of these issues including whether they are valid. </p>
+   <p> This document was published by the <a href="https://www.w3.org/media-wg/">Media Working Group</a> as an Editor’s Draft.
+  This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. </p>
+   <p> Publication as an Editor’s Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. </p>
+   <p> This is a draft document and may be updated, replaced or obsoleted by other documents at any time.
+  It is inappropriate to cite this document as other than work in progress. </p>
+   <p> This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/Consortium/Patent-Policy-20170801/" id="sotd_patent">W3C Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/2004/01/pp-impl/115198/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
+   <p> This document is governed by the <a href="https://www.w3.org/2020/Process-20200915/" id="w3c_process_revision">15 September 2020 W3C Process Document</a>. </p>
+   <p></p>
+  </div>
+  <div data-fill-with="at-risk"></div>
+  <nav data-fill-with="table-of-contents" id="toc">
+   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
+   <ol class="toc" role="directory">
+    <li><a href="#introduction"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li>
+     <a href="#autoplay-detection-api"><span class="secno">2</span> <span class="content">The Autoplay Detection API</span></a>
+     <ol class="toc">
+      <li><a href="#autoplay-policy"><span class="secno">2.1</span> <span class="content">Autoplay Policy Enum</span></a>
+      <li><a href="#document-api"><span class="secno">2.2</span> <span class="content">Document API</span></a>
+      <li><a href="#media-element-api"><span class="secno">2.3</span> <span class="content">HTMLMediaElement API</span></a>
+     </ol>
+    <li><a href="#code-example"><span class="secno">3</span> <span class="content">Examples</span></a>
+    <li><a href="#security-and-privacy"><span class="secno">4</span> <span class="content">Security and Privacy Considerations</span></a>
+    <li><a href="#acknowledgements"><span class="secno">5</span> <span class="content">Acknowledgments</span></a>
+    <li>
+     <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ol class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
+      <li><a href="#index-defined-elsewhere"><span class="secno"></span> <span class="content">Terms defined by reference</span></a>
+     </ol>
+    <li>
+     <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
+     <ol class="toc">
+      <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
+     </ol>
+    <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
+   </ol>
+  </nav>
+  <main>
+   <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
+    Most user agents have their own mechanism to block autoplay media, and each of them could all behave differently. Web developers would like to have a way to detect if the autoplay media is allowed or not in order to make actions, such like selecting alternate content or improving the user experience while media is not allowed to autoplay. For instance, if an user agent only blocks audible autoplay, then web developers can replace audible media with inaudible media to keep media playing, instead of showing a blocked media which looks like a still image to users. If the user agent does not allow any autoplay media, then web developers could stop loading media resource and related tasks to save the bandwidth and CPU usage for users. 
+   <p>Currently the autoplay media referred in this specification only includes <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement①">HTMLMediaElement</a></code> (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#video" id="ref-for-video">video</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#audio" id="ref-for-audio">audio</a></code>) and does not include <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/webaudio/">Web Audio API</a>, <a data-biblio-display="inline" data-link-type="biblio" href="https://wicg.github.io/speech-api/">Web Speech API</a> and <code><a data-link-type="element" href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image" id="ref-for-elementdef-image">image</a></code> (GIF animation).</p>
+   <h2 class="heading settled" data-level="2" id="autoplay-detection-api"><span class="secno">2. </span><span class="content">The Autoplay Detection API</span><a class="self-link" href="#autoplay-detection-api"></a></h2>
+    The autoplay detection can be performed on either <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document①">Document</a></code> element, which provides a general idea for web develops to know if autoplay media is allowed on this document element. If there are more than one document existing on the page, they could return different results based on the user agent’s implementation, or on <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement②">HTMLMediaElement</a></code>, which provides more accurate result for whether the autoplay is allowed on the specific media element. 
+   <h3 class="heading settled" data-level="2.1" id="autoplay-policy"><span class="secno">2.1. </span><span class="content">Autoplay Policy Enum</span><a class="self-link" href="#autoplay-policy"></a></h3>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-autoplaypolicy"><code><c- g>AutoplayPolicy</c-></code></dfn> {
+  <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed"><c- s>"allowed"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted"><c- s>"allowed-muted"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed"><c- s>"disallowed"</c-></a>
+};
+</pre>
+   <div class="enum-description">
+    <table class="simple">
+     <thead>
+      <tr>
+       <th colspan="2" scope="col"> Enumeration description 
+     <tbody>
+      <tr>
+       <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;allowed&quot;|allowed" id="dom-autoplaypolicy-allowed"><code>allowed</code></dfn>" 
+       <td> Allow media to autoplay at the current moment. 
+      <tr>
+       <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;allowed-muted&quot;|allowed-muted" id="dom-autoplaypolicy-allowed-muted"><code>allowed-muted</code></dfn>" 
+       <td> Allow inaudible media to autoplay at the current moment. Inaudible media means that (1) media’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume" id="ref-for-dom-media-volume">volume</a></code> equal to 0 (2) media’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted" id="ref-for-dom-media-muted">muted</a></code> is false, or (3) media’s <a href="https://html.spec.whatwg.org/multipage/media.html#media-resource">resource</a> does not have an audio track. 
+      <tr>
+       <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;disallowed&quot;|disallowed" id="dom-autoplaypolicy-disallowed"><code>disallowed</code></dfn>" 
+       <td> No media is allowed to autoplay at the current moment. 
+    </table>
+   </div>
+    The autoplay policy represents the current status of whether an user agent allows the autoplay, which can vary in the future. 
+   <div class="example" id="example-fa0c2413"><a class="self-link" href="#example-fa0c2413"></a> If an user agent uses the user activation, described in <a href="https://html.spec.whatwg.org/multipage/interaction.html#user-activation-data-model">HTML 5 §6.3.1 Data model</a>, to determine if the page or the media element can be allowed to autoplay and it blocks all autoplay by default (<code>disallowed</code>). After users perform supported user actions on the page or on the media element, then the result might be changed to <code>allowed</code> or <code>allowed-muted</code>. </div>
+   <p>Therefore, it is <strong>recommended</strong> that the web developers should check the result every time when they want to know the up-to-date result.</p>
+   <h3 class="heading settled" data-level="2.2" id="document-api"><span class="secno">2.2. </span><span class="content">Document API</span><a class="self-link" href="#document-api"></a></h3>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://dom.spec.whatwg.org/#document" id="ref-for-document②"><c- g>Document</c-></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy"><c- n>AutoplayPolicy</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Document" data-dfn-type="attribute" data-export data-readonly data-type="AutoplayPolicy" id="dom-document-autoplaypolicy"><code><c- g>autoplayPolicy</c-></code></dfn>;
+};
+</pre>
+   <p>This represents the rough status of whether media that belongs to this <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document③">Document</a></code> is allowed to autoplay or not.</p>
+   <p>If the result is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed①">allowed</a></code>, that means all media that belong to this document are allowed to autoplay. If it is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted①">allowed-muted</a></code>, that means all inaudible media that belong to this document are allowed to autoplay, and <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed①">disallowed</a></code> means all media belongs to this document
+  are not allowed to autoplay.</p>
+   <p>However, depends on the user agent’s implementation, it’s still possible for some media that exist on the same document to be allowed to autoplay when the document <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy">autoplayPolicy</a></code> returns <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed②">disallowed</a></code>.</p>
+   <div class="example" id="example-25af44cd">
+    <a class="self-link" href="#example-25af44cd"></a> If an user agent does not allow any media to autoplay by default, but allows autoplay on those media element which has been clicked by users before. In the begining, both the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy①">autoplayPolicy</a></code> and the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy">autoplayPolicy</a></code> will be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed③">disallowed</a></code>. 
+    <p>However, after users click on the media element, then that media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy①">autoplayPolicy</a></code> will be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed②">allowed</a></code> but the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy②">autoplayPolicy</a></code> will be still <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed④">disallowed</a></code>. Other media elements (if any) that hasn’t been clicked yet and are on the same document will also be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑤">disallowed</a></code> result in their <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy②">autoplayPolicy</a></code>.</p>
+   </div>
+   <p>Therefore, it is <strong>recommended</strong> to check each media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy③">autoplayPolicy</a></code> in order to get the correct result when document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy③">autoplayPolicy</a></code> is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑥">disallowed</a></code>.</p>
+   <p>If the document has child documents, then the result from child documents could be same or different from the result of their parent documents depends on the user agent’s implementation.</p>
+   <div class="example" id="example-5bbe6099">
+    <a class="self-link" href="#example-5bbe6099"></a> Assume that the top level document A in <code>foo.com</code> will return <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed③">allowed</a></code> and it has an embedded iframe, which has another document B from <code>bar.com</code>. An user agent could either make child document B return the same result from the top level document A, or let the document B return a different result <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑦">disallowed</a></code>. 
+    <p>Doing the former way helps to simplify the complexity and make the behavior of blocking autoplay more consistent. The latter way helps to provide the finer blocking autoplay control for each origin.</p>
+   </div>
+   <p>Therefore, it is <strong>recommended</strong> that web developers should check the result from each different document in order to get the correct result.</p>
+   <h3 class="heading settled" data-level="2.3" id="media-element-api"><span class="secno">2.3. </span><span class="content">HTMLMediaElement API</span><a class="self-link" href="#media-element-api"></a></h3>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement③"><c- g>HTMLMediaElement</c-></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy①"><c- n>AutoplayPolicy</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="HTMLMediaElement" data-dfn-type="attribute" data-export data-readonly data-type="AutoplayPolicy" id="dom-htmlmediaelement-autoplaypolicy"><code><c- g>autoplayPolicy</c-></code></dfn>;
+};
+</pre>
+   <p>This represents the current status of whether this <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement④">HTMLMediaElement</a></code> is allowed to autoplay or not.</p>
+   <p>If the result is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed④">allowed</a></code>, that means this media element is allowed to autoplay. If it is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted②">allowed-muted</a></code>, that means this media will only be allowed to autoplay if it’s inaudible. For instance, setting <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume" id="ref-for-dom-media-volume①">volume</a></code> to <code>0</code>, setting <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted" id="ref-for-dom-media-muted①">muted</a></code> to <code>true</code> or the media’s resource doesn’t have an audio track. If web developers adjust media’s attributes to make it audible after the media element successfully starts playing and the media’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy④">autoplayPolicy</a></code> is still <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted③">allowed-muted</a></code>, user agents should pause media immediately because the media element is no longer inaudible.</p>
+   <p>If the result is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑧">disallowed</a></code>, then this media is not allowed to autoplay, and will reject the promise that will be returned from the media element’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play">play()</a></code> with <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> exception.</p>
+   <p>If the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑤">autoplayPolicy</a></code> is different from the document element’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy④">autoplayPolicy</a></code>, the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑥">autoplayPolicy</a></code> should be regarded as the final decision for autoplay.</p>
+   <h2 class="heading settled" data-level="3" id="code-example"><span class="secno">3. </span><span class="content">Examples</span><a class="self-link" href="#code-example"></a></h2>
+   <div class="example" id="example-466fa27c">
+    <a class="self-link" href="#example-466fa27c"></a> Example of using Document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy⑤">autoplayPolicy</a></code> 
+<pre class="lang-javascript highlight"><c- k>switch</c-> <c- p>(</c->document<c- p>.</c->autoplayPolicy<c- p>)</c-> <c- p>{</c->
+  <c- k>case</c-> <c- u>"allowed"</c-><c- o>:</c->
+    loadUnmutedVideos<c- p>();</c->
+    <c- k>break</c-><c- p>;</c->
+  <c- k>case</c-> <c- u>"allowed-muted"</c-><c- o>:</c->
+    loadMutedVideos<c- p>();</c->
+    <c- k>break</c-><c- p>;</c->
+  <c- k>default</c-><c- o>:</c->
+    loadPosterImages<c- p>();</c->
+    <c- k>break</c-><c- p>;</c->
+<c- p>}</c->
+</pre>
+   </div>
+   <div class="example" id="example-9cefe1a3">
+    <a class="self-link" href="#example-9cefe1a3"></a> Example of using HTMLMediaElement’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑦">autoplayPolicy</a></code> 
+<pre class="lang-javascript highlight"><c- a>function</c-> handlePlaySucceeded<c- p>()</c-> <c- p>{</c->
+  <c- c1>// Update the control UI to playing</c->
+<c- p>}</c->
+<c- a>function</c-> handlePlayFailed<c- p>()</c-> <c- p>{</c->
+  <c- c1>// Show a button to allow users to explicitly start the video and</c->
+  <c- c1>// display a image element as poster to replace the video</c->
+<c- p>}</c->
+
+<c- a>let</c-> video <c- o>=</c-> document<c- p>.</c->getElementById<c- p>(</c-><c- u>"video"</c-><c- p>);</c->
+<c- k>switch</c-> <c- p>(</c->video<c- p>.</c->autoplayPolicy<c- p>)</c-> <c- p>{</c->
+  <c- k>case</c-> <c- u>"allowed"</c-><c- o>:</c->
+    video<c- p>.</c->src <c- o>=</c-> <c- u>"video.webm"</c-><c- p>;</c->
+    <c- k>await</c-> video<c- p>.</c->play<c- p>().</c->then<c- p>(</c->handlePlaySucceeded<c- p>,</c-> handlePlayFailed<c- p>);</c->
+    <c- k>break</c-><c- p>;</c->
+  <c- k>case</c-> <c- u>"allowed-muted"</c-><c- o>:</c->
+    video<c- p>.</c->src <c- o>=</c-> <c- u>"video.webm"</c-><c- p>;</c->
+    video<c- p>.</c->muted <c- o>=</c-> <c- kc>true</c-><c- p>;</c->
+    <c- k>await</c-> video<c- p>.</c->play<c- p>().</c->then<c- p>(</c->handlePlaySucceeded<c- p>,</c-> handlePlayFailed<c- p>);</c->
+    <c- k>break</c-><c- p>;</c->
+  <c- k>default</c-><c- o>:</c->
+    <c- c1>// Autoplay is not allowed, no need to download the resource.</c->
+    handlePlayFailed<c- p>();</c->
+    <c- k>break</c-><c- p>;</c->
+<c- p>}</c->
+</pre>
+   </div>
+   <h2 class="heading settled" data-level="4" id="security-and-privacy"><span class="secno">4. </span><span class="content">Security and Privacy Considerations</span><a class="self-link" href="#security-and-privacy"></a></h2>
+   <p>Per the <a href="https://www.w3.org/TR/security-privacy-questionnaire/#questions">Self-Review Questionnaire: Security and Privacy §questions</a>.</p>
+   <p>The API introduced in this specification has very low impact with regards to security and privacy. It does not expose any sensitive information that can be used to to identify users. It does not expose any ability to control sensors and any users' devices. It does not introduce any new state for an origin that will persist across browsing sessions. It does not allow an origin to send any data to the underlying platform. It does not introduce or enable new script execution and loading mechanism. It does not allow an origin to over an user agent’s native UI. It does not allow an origin to detect if users are in the private or non-private browsing mode.</p>
+   <h2 class="heading settled" data-level="5" id="acknowledgements"><span class="secno">5. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgements"></a></h2>
+    This specification is the collective work of the <a href="https://www.w3.org/media-wg/">W3C media Working Group</a>. 
+   <p>The editors would like to thank [TBD] for their contributions to this specification.</p>
+   <p id="back-to-top" role="navigation"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
+<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+  </main>
+  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="index">
+   <li><a href="#dom-autoplaypolicy-allowed">"allowed"</a><span>, in §2.1</span>
+   <li><a href="#dom-autoplaypolicy-allowed">allowed</a><span>, in §2.1</span>
+   <li><a href="#dom-autoplaypolicy-allowed-muted">"allowed-muted"</a><span>, in §2.1</span>
+   <li><a href="#dom-autoplaypolicy-allowed-muted">allowed-muted</a><span>, in §2.1</span>
+   <li><a href="#enumdef-autoplaypolicy">AutoplayPolicy</a><span>, in §2.1</span>
+   <li>
+    autoplayPolicy
+    <ul>
+     <li><a href="#dom-document-autoplaypolicy">attribute for Document</a><span>, in §2.2</span>
+     <li><a href="#dom-htmlmediaelement-autoplaypolicy">attribute for HTMLMediaElement</a><span>, in §2.3</span>
+    </ul>
+   <li><a href="#dom-autoplaypolicy-disallowed">"disallowed"</a><span>, in §2.1</span>
+   <li><a href="#dom-autoplaypolicy-disallowed">disallowed</a><span>, in §2.1</span>
+  </ul>
+  <aside class="dfn-panel" data-for="term-for-document">
+   <a href="https://dom.spec.whatwg.org/#document">https://dom.spec.whatwg.org/#document</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-document">Unnumbered Section</a>
+    <li><a href="#ref-for-document①">2. The Autoplay Detection API</a>
+    <li><a href="#ref-for-document②">2.2. Document API</a> <a href="#ref-for-document③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-htmlmediaelement">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement">https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmlmediaelement">Unnumbered Section</a>
+    <li><a href="#ref-for-htmlmediaelement①">1. Introduction</a>
+    <li><a href="#ref-for-htmlmediaelement②">2. The Autoplay Detection API</a>
+    <li><a href="#ref-for-htmlmediaelement③">2.3. HTMLMediaElement API</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-audio">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#audio">https://html.spec.whatwg.org/multipage/media.html#audio</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-audio">1. Introduction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-media-muted">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted">https://html.spec.whatwg.org/multipage/media.html#dom-media-muted</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-media-muted">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-dom-media-muted①">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-media-play">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play">https://html.spec.whatwg.org/multipage/media.html#dom-media-play</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-media-play">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-video">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#video">https://html.spec.whatwg.org/multipage/media.html#video</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-video">1. Introduction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-media-volume">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume">https://html.spec.whatwg.org/multipage/media.html#dom-media-volume</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-media-volume">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-dom-media-volume①">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-elementdef-image">
+   <a href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image">https://svgwg.org/svg2-draft/embedded.html#elementdef-image</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-elementdef-image">1. Introduction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-notallowederror">
+   <a href="https://heycam.github.io/webidl/#notallowederror">https://heycam.github.io/webidl/#notallowederror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-notallowederror">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <ul class="index">
+   <li>
+    <a data-link-type="biblio">[DOM]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-document">Document</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[HTML]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-htmlmediaelement">HTMLMediaElement</span>
+     <li><span class="dfn-paneled" id="term-for-audio">audio</span>
+     <li><span class="dfn-paneled" id="term-for-dom-media-muted">muted</span>
+     <li><span class="dfn-paneled" id="term-for-dom-media-play">play()</span>
+     <li><span class="dfn-paneled" id="term-for-video">video</span>
+     <li><span class="dfn-paneled" id="term-for-dom-media-volume">volume</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[SVG2]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-elementdef-image">image</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
+    </ul>
+  </ul>
+  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <dl>
+   <dt id="biblio-dom">[DOM]
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-svg2">[SVG2]
+   <dd>Amelia Bellamy-Royds; et al. <a href="https://www.w3.org/TR/SVG2/">Scalable Vector Graphics (SVG) 2</a>. 4 October 2018. CR. URL: <a href="https://www.w3.org/TR/SVG2/">https://www.w3.org/TR/SVG2/</a>
+   <dt id="biblio-webidl">[WebIDL]
+   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+  </dl>
+  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <dl>
+   <dt id="biblio-speech-api">[SPEECH-API]
+   <dd><a href="https://wicg.github.io/speech-api/">Web Speech API</a>. cg-draft. URL: <a href="https://wicg.github.io/speech-api/">https://wicg.github.io/speech-api/</a>
+   <dt id="biblio-webaudio">[WEBAUDIO]
+   <dd>Paul Adenot; Hongchan Choi. <a href="https://www.w3.org/TR/webaudio/">Web Audio API</a>. 6 May 2021. PR. URL: <a href="https://www.w3.org/TR/webaudio/">https://www.w3.org/TR/webaudio/</a>
+  </dl>
+  <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
+<pre class="idl highlight def"><c- b>enum</c-> <a href="#enumdef-autoplaypolicy"><code><c- g>AutoplayPolicy</c-></code></a> {
+  <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-allowed"><c- s>"allowed"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-allowed-muted"><c- s>"allowed-muted"</c-></a>,
+  <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-disallowed"><c- s>"disallowed"</c-></a>
+};
+
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://dom.spec.whatwg.org/#document"><c- g>Document</c-></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-autoplaypolicy"><c- n>AutoplayPolicy</c-></a> <a data-readonly data-type="AutoplayPolicy" href="#dom-document-autoplaypolicy"><code><c- g>autoplayPolicy</c-></code></a>;
+};
+
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement"><c- g>HTMLMediaElement</c-></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-autoplaypolicy"><c- n>AutoplayPolicy</c-></a> <a data-readonly data-type="AutoplayPolicy" href="#dom-htmlmediaelement-autoplaypolicy"><code><c- g>autoplayPolicy</c-></code></a>;
+};
+
+</pre>
+  <aside class="dfn-panel" data-for="enumdef-autoplaypolicy">
+   <b><a href="#enumdef-autoplaypolicy">#enumdef-autoplaypolicy</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-autoplaypolicy">2.2. Document API</a>
+    <li><a href="#ref-for-enumdef-autoplaypolicy①">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-autoplaypolicy-allowed">
+   <b><a href="#dom-autoplaypolicy-allowed">#dom-autoplaypolicy-allowed</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed①">2.2. Document API</a> <a href="#ref-for-dom-autoplaypolicy-allowed②">(2)</a> <a href="#ref-for-dom-autoplaypolicy-allowed③">(3)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed④">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-autoplaypolicy-allowed-muted">
+   <b><a href="#dom-autoplaypolicy-allowed-muted">#dom-autoplaypolicy-allowed-muted</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted①">2.2. Document API</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted②">2.3. HTMLMediaElement API</a> <a href="#ref-for-dom-autoplaypolicy-allowed-muted③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-autoplaypolicy-disallowed">
+   <b><a href="#dom-autoplaypolicy-disallowed">#dom-autoplaypolicy-disallowed</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-autoplaypolicy-disallowed">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-disallowed①">2.2. Document API</a> <a href="#ref-for-dom-autoplaypolicy-disallowed②">(2)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed③">(3)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed④">(4)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑤">(5)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑥">(6)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑦">(7)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-disallowed⑧">2.3. HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-document-autoplaypolicy">
+   <b><a href="#dom-document-autoplaypolicy">#dom-document-autoplaypolicy</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-document-autoplaypolicy">2.2. Document API</a> <a href="#ref-for-dom-document-autoplaypolicy①">(2)</a> <a href="#ref-for-dom-document-autoplaypolicy②">(3)</a> <a href="#ref-for-dom-document-autoplaypolicy③">(4)</a>
+    <li><a href="#ref-for-dom-document-autoplaypolicy④">2.3. HTMLMediaElement API</a>
+    <li><a href="#ref-for-dom-document-autoplaypolicy⑤">3. Examples</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-htmlmediaelement-autoplaypolicy">
+   <b><a href="#dom-htmlmediaelement-autoplaypolicy">#dom-htmlmediaelement-autoplaypolicy</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy">2.2. Document API</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy①">(2)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy②">(3)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy③">(4)</a>
+    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy④">2.3. HTMLMediaElement API</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑤">(2)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑥">(3)</a>
+    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑦">3. Examples</a>
+   </ul>
+  </aside>
+<script>/* script-dfn-panel */
+
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
+        });
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>

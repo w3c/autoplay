@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version 800b43329, updated Tue May 25 14:13:32 2021 -0700" name="generator">
   <link href="http://example.com/url-this-spec-will-live-at" rel="canonical">
-  <meta content="bfce82f271f9dcb361ad476d1fa3d8480695d3c8" name="document-revision">
+  <meta content="85207b4e81a9cf37400320ca7966b60e10a80044" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -598,7 +598,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Autoplay Policy Detection</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-06-14">14 June 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-04">4 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -607,7 +607,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dd><a href="https://github.com/alastor0325/autoplay/issues/">GitHub</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:alwu@mozilla.com">Alastor Wu</a> (<a class="p-org org" href="https://www.mozilla.org">Mozilla</a>)
-     <dd class="editor p-author h-card vcard"><span class="p-name fn">TBD</span>
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:padenot@mozilla.com">Paul Adenot</a> (<a class="p-org org" href="https://www.mozilla.org">Mozilla</a>)
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -616,7 +616,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This specification provides web developers the ability to detect if the autoplay media is allowed or not in the different level of perspective, either a <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document">Document</a></code> or a <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement">HTMLMediaElement</a></code>, at the current moment.</p>
+   <p>This specification provides web developers the ability to detect if automatically starting the playback of a media file is allowed in different situations.</p>
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
@@ -642,8 +642,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <a href="#autoplay-detection-api"><span class="secno">2</span> <span class="content">The Autoplay Detection API</span></a>
      <ol class="toc">
       <li><a href="#autoplay-policy"><span class="secno">2.1</span> <span class="content">Autoplay Policy Enum</span></a>
-      <li><a href="#document-api"><span class="secno">2.2</span> <span class="content">Document API</span></a>
-      <li><a href="#media-element-api"><span class="secno">2.3</span> <span class="content">HTMLMediaElement API</span></a>
+      <li><a href="#document-api"><span class="secno">2.2</span> <span class="content">The Document API</span></a>
+      <li><a href="#media-element-api"><span class="secno">2.3</span> <span class="content">The HTMLMediaElement API</span></a>
      </ol>
     <li><a href="#code-example"><span class="secno">3</span> <span class="content">Examples</span></a>
     <li><a href="#security-and-privacy"><span class="secno">4</span> <span class="content">Security and Privacy Considerations</span></a>
@@ -665,10 +665,10 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
-    Most user agents have their own mechanism to block autoplay media, and each of them could all behave differently. Web developers would like to have a way to detect if the autoplay media is allowed or not in order to make actions, such like selecting alternate content or improving the user experience while media is not allowed to autoplay. For instance, if an user agent only blocks audible autoplay, then web developers can replace audible media with inaudible media to keep media playing, instead of showing a blocked media which looks like a still image to users. If the user agent does not allow any autoplay media, then web developers could stop loading media resource and related tasks to save the bandwidth and CPU usage for users. 
-   <p>Currently the autoplay media referred in this specification only includes <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement①">HTMLMediaElement</a></code> (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#video" id="ref-for-video">video</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#audio" id="ref-for-audio">audio</a></code>) and does not include <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/webaudio/">Web Audio API</a>, <a data-biblio-display="inline" data-link-type="biblio" href="https://wicg.github.io/speech-api/">Web Speech API</a> and <code><a data-link-type="element" href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image" id="ref-for-elementdef-image">image</a></code> (GIF animation).</p>
+    Most user-agents have their own mechanisms to block autoplay media, and those mechanisms are implementation-specific. Web developers need to have a way to detect if the autoplay media is allowed or not in order to make actions, such like selecting alternate content or improving the user experience while media is not allowed to autoplay. For instance, if a user-agent only blocks audible autoplay, then web developers can replace audible media with inaudible media to keep media playing, instead of showing a blocked media which looks like a still image to users. If the user-agent does not allow any autoplay media, then web developers could stop loading media resource and related tasks to save the bandwidth and CPU usage for users. 
+   <p>Currently, this specification only handles <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement">HTMLMediaElement</a></code> (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#video" id="ref-for-video">video</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#audio" id="ref-for-audio">audio</a></code>) and does not handle <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/webaudio/">Web Audio API</a>, <a data-biblio-display="inline" data-link-type="biblio" href="https://wicg.github.io/speech-api/">Web Speech API</a> and <code><a data-link-type="element" href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image" id="ref-for-elementdef-image">image</a></code> (GIF animation). Although the result from the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy">autoplayPolicy</a></code> can be used to detect whether web audio can be started if user-agents block web audio to autoplay.</p>
    <h2 class="heading settled" data-level="2" id="autoplay-detection-api"><span class="secno">2. </span><span class="content">The Autoplay Detection API</span><a class="self-link" href="#autoplay-detection-api"></a></h2>
-    The autoplay detection can be performed on either <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document①">Document</a></code> element, which provides a general idea for web develops to know if autoplay media is allowed on this document element. If there are more than one document existing on the page, they could return different results based on the user agent’s implementation, or on <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement②">HTMLMediaElement</a></code>, which provides more accurate result for whether the autoplay is allowed on the specific media element. 
+    Autoplay detection can be performed on either the <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document">Document</a></code> element or on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement①">HTMLMediaElement</a></code>. The former provides a general idea to authors to know if autoplay media is allowed on this document element. If the page contains multiple documents, an implementation can decide to return different result for each of them. The latter provides more accurate result for whether the autoplay is allowed on a specific media element. 
    <h3 class="heading settled" data-level="2.1" id="autoplay-policy"><span class="secno">2.1. </span><span class="content">Autoplay Policy Enum</span><a class="self-link" href="#autoplay-policy"></a></h3>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-autoplaypolicy"><code><c- g>AutoplayPolicy</c-></code></dfn> {
   <a class="idl-code" data-link-type="enum-value" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed"><c- s>"allowed"</c-></a>,
@@ -684,50 +684,83 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <tbody>
       <tr>
        <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;allowed&quot;|allowed" id="dom-autoplaypolicy-allowed"><code>allowed</code></dfn>" 
-       <td> Allow media to autoplay at the current moment. 
+       <td> Media are allowed to autoplay. 
       <tr>
        <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;allowed-muted&quot;|allowed-muted" id="dom-autoplaypolicy-allowed-muted"><code>allowed-muted</code></dfn>" 
-       <td> Allow inaudible media to autoplay at the current moment. Inaudible media means that (1) media’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume" id="ref-for-dom-media-volume">volume</a></code> equal to 0 (2) media’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted" id="ref-for-dom-media-muted">muted</a></code> is false, or (3) media’s <a href="https://html.spec.whatwg.org/multipage/media.html#media-resource">resource</a> does not have an audio track. 
+       <td>
+         Inaudible media element are allowed to autoplay. An <dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export id="dom-autoplaypolicy-inaudible-media-element"><code>inaudible media element</code></dfn> is an <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement②">HTMLMediaElement</a></code> that has any of those conditions true: 
+        <ol>
+         <li> media’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume" id="ref-for-dom-media-volume">volume</a></code> equal to 0 
+         <li> media’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted" id="ref-for-dom-media-muted">muted</a></code> is true 
+         <li> media’s <a href="https://html.spec.whatwg.org/multipage/media.html#media-resource">resource</a> does not have an audio track 
+        </ol>
       <tr>
        <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;disallowed&quot;|disallowed" id="dom-autoplaypolicy-disallowed"><code>disallowed</code></dfn>" 
-       <td> No media is allowed to autoplay at the current moment. 
+       <td> No media is allowed to autoplay. 
     </table>
    </div>
-    The autoplay policy represents the current status of whether an user agent allows the autoplay, which can vary in the future. 
-   <div class="example" id="example-fa0c2413"><a class="self-link" href="#example-fa0c2413"></a> If an user agent uses the user activation, described in <a href="https://html.spec.whatwg.org/multipage/interaction.html#user-activation-data-model">HTML 5 §6.3.1 Data model</a>, to determine if the page or the media element can be allowed to autoplay and it blocks all autoplay by default (<code>disallowed</code>). After users perform supported user actions on the page or on the media element, then the result might be changed to <code>allowed</code> or <code>allowed-muted</code>. </div>
-   <p>Therefore, it is <strong>recommended</strong> that the web developers should check the result every time when they want to know the up-to-date result.</p>
-   <h3 class="heading settled" data-level="2.2" id="document-api"><span class="secno">2.2. </span><span class="content">Document API</span><a class="self-link" href="#document-api"></a></h3>
-<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://dom.spec.whatwg.org/#document" id="ref-for-document②"><c- g>Document</c-></a> {
+   <div class="note" role="note"> Note: The autoplay policy represents the current status of whether a user-agent allows media to autoplay, which can <strong>vary</strong> in the future. Therefore, it is <strong>recommended</strong> authors to check the result every time they want to have an up-to-date result. </div>
+   <div class="example" id="example-6b840c21"><a class="self-link" href="#example-6b840c21"></a> If a user-agent uses the user activation, described in <a href="https://html.spec.whatwg.org/multipage/interaction.html#user-activation-data-model">HTML 5 §6.3.1 Data model</a>, to determine if the autoplay media are allowed or not, and it blocks all autoplay by default (<code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed①">disallowed</a></code>). Then the policy can change to <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed①">allowed</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted①">allowed-muted</a></code> after a user performs a supported user gesture on the page or the media. </div>
+   <h3 class="heading settled" data-level="2.2" id="document-api"><span class="secno">2.2. </span><span class="content">The Document API</span><a class="self-link" href="#document-api"></a></h3>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://dom.spec.whatwg.org/#document" id="ref-for-document①"><c- g>Document</c-></a> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy"><c- n>AutoplayPolicy</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Document" data-dfn-type="attribute" data-export data-readonly data-type="AutoplayPolicy" id="dom-document-autoplaypolicy"><code><c- g>autoplayPolicy</c-></code></dfn>;
 };
 </pre>
-   <p>This represents the rough status of whether media that belongs to this <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document③">Document</a></code> is allowed to autoplay or not.</p>
-   <p>If the result is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed①">allowed</a></code>, that means all media that belong to this document are allowed to autoplay. If it is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted①">allowed-muted</a></code>, that means all inaudible media that belong to this document are allowed to autoplay, and <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed①">disallowed</a></code> means all media belongs to this document
-  are not allowed to autoplay.</p>
-   <p>However, depends on the user agent’s implementation, it’s still possible for some media that exist on the same document to be allowed to autoplay when the document <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy">autoplayPolicy</a></code> returns <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed②">disallowed</a></code>.</p>
-   <div class="example" id="example-25af44cd">
-    <a class="self-link" href="#example-25af44cd"></a> If an user agent does not allow any media to autoplay by default, but allows autoplay on those media element which has been clicked by users before. In the begining, both the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy①">autoplayPolicy</a></code> and the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy">autoplayPolicy</a></code> will be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed③">disallowed</a></code>. 
-    <p>However, after users click on the media element, then that media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy①">autoplayPolicy</a></code> will be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed②">allowed</a></code> but the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy②">autoplayPolicy</a></code> will be still <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed④">disallowed</a></code>. Other media elements (if any) that hasn’t been clicked yet and are on the same document will also be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑤">disallowed</a></code> result in their <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy②">autoplayPolicy</a></code>.</p>
+   <p>This represents a rough status of whether media that belong to this <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document②">Document</a></code> are allowed to autoplay or not.</p>
+   <dl class="switch">
+    <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed②">allowed</a></code>
+    <dd> All media that belong to this document are allowed to autoplay. 
+    <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted②">allowed-muted</a></code>
+    <dd> All <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-inaudible-media-element" id="ref-for-dom-autoplaypolicy-inaudible-media-element">inaudible media element</a></code> that belong to this document are allowed to autoplay. 
+    <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed②">disallowed</a></code>
+    <dd> <strong>None</strong> of media belongs to this document are allowed to autoplay. 
+   </dl>
+   <div class="note" role="note"> Note: However, depending on the implementation, it’s still possible for some media that exist on the same document to be allowed to autoplay when the document <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy①">autoplayPolicy</a></code> returns <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed③">disallowed</a></code>. It is <strong>recommended</strong> for authors to check each media element’s autoplayPolicy in order to get a complete result when document’s autoplayPolicy is disallowed, if authors want to use that as a result to determine whether media can be started playing. </div>
+   <div class="example" id="example-162fb7a8">
+    <a class="self-link" href="#example-162fb7a8"></a> If a user-agent does not allow any media to autoplay by default, but allows autoplay on those media elements which have been clicked by users before. At first, both the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy②">autoplayPolicy</a></code> and the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy">autoplayPolicy</a></code> will be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed④">disallowed</a></code>. 
+    <p>However, after a user clicks on a media element, then this media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy①">autoplayPolicy</a></code> might become <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed③">allowed</a></code> if a user-agent decides to bless this element because that seems intended by users. In this case, the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy③">autoplayPolicy</a></code> and other media elements' <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy②">autoplayPolicy</a></code> (if any), which haven’t been clicked yet and are on the same document, will still be <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑤">disallowed</a></code>.</p>
    </div>
-   <p>Therefore, it is <strong>recommended</strong> to check each media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy③">autoplayPolicy</a></code> in order to get the correct result when document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy③">autoplayPolicy</a></code> is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑥">disallowed</a></code>.</p>
-   <p>If the document has child documents, then the result from child documents could be same or different from the result of their parent documents depends on the user agent’s implementation.</p>
-   <div class="example" id="example-5bbe6099">
-    <a class="self-link" href="#example-5bbe6099"></a> Assume that the top level document A in <code>foo.com</code> will return <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed③">allowed</a></code> and it has an embedded iframe, which has another document B from <code>bar.com</code>. An user agent could either make child document B return the same result from the top level document A, or let the document B return a different result <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑦">disallowed</a></code>. 
-    <p>Doing the former way helps to simplify the complexity and make the behavior of blocking autoplay more consistent. The latter way helps to provide the finer blocking autoplay control for each origin.</p>
+   <div class="note" role="note"> Note: If the document has child documents, then the result from child documents could be different from the result of their parent documents depending on the implementation. </div>
+   <div class="example" id="example-b2878e29">
+    <a class="self-link" href="#example-b2878e29"></a> Assume that the top level document A in <code>foo.com</code> returns <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed④">allowed</a></code> and it has an embedded iframe, which has another document B from <code>bar.com</code>. A user-agent could either make child document B return the same result that is inherited from the top level document A. Or make the document B return a different result, eg. <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑥">disallowed</a></code>. 
+    <p>Doing the former helps to lower the complexity and make the behavior of blocking autoplay more consistent. The latter helps providing a finer-grained autoplay control.</p>
    </div>
-   <p>Therefore, it is <strong>recommended</strong> that web developers should check the result from each different document in order to get the correct result.</p>
-   <h3 class="heading settled" data-level="2.3" id="media-element-api"><span class="secno">2.3. </span><span class="content">HTMLMediaElement API</span><a class="self-link" href="#media-element-api"></a></h3>
+   <div class="note" role="note"> Note : In addition, document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy④">autoplayPolicy</a></code> can also be used to know whether <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/webaudio/">Web Audio API</a> can be allowed to start if a user-agent blocks web audio by default. </div>
+   <div class="example" id="example-d4c49558">
+    <a class="self-link" href="#example-d4c49558"></a> <a href="https://webaudio.github.io/web-audio-api/#allowed-to-start">Web audio</a> uses the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation" id="ref-for-sticky-activation">sticky activation</a> to determine if <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext">AudioContext</a></code> can be allowed to start. If the document is allowed to autoplay, then <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext①">AudioContext</a></code> should also be allowed to start. 
+<pre class="lang-javascript highlight"><c- a>var</c-> ac <c- o>=</c-> <c- k>new</c-> AudioContext<c- p>;</c->
+<c- k>if</c-> <c- p>(</c->document<c- p>.</c->autoplayPolicy <c- o>==</c-> <c- u>"allowed"</c-><c- p>)</c-> <c- p>{</c->
+  ac<c- p>.</c->onstatechange <c- o>=</c-> <c- a>function</c-><c- p>()</c-> <c- p>{</c->
+    <c- k>if</c-> <c- p>(</c->ac<c- p>.</c->state <c- o>==</c-> <c- u>"running"</c-><c- p>)</c-> <c- p>{</c->
+      <c- c1>// Start running audio app</c->
+    <c- p>}</c-> <c- k>else</c-> <c- p>{</c->
+      <c- c1>// Display a bit of UI to ask the user to start the audio app.</c->
+      <c- c1>// Audio starts via calling ac.resume() from a handler, and</c->
+      <c- c1>// 'onstatechange' allows knowing when the audio stack is ready.</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+   </div>
+   <h3 class="heading settled" data-level="2.3" id="media-element-api"><span class="secno">2.3. </span><span class="content">The HTMLMediaElement API</span><a class="self-link" href="#media-element-api"></a></h3>
 <pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement③"><c- g>HTMLMediaElement</c-></a> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy①"><c- n>AutoplayPolicy</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="HTMLMediaElement" data-dfn-type="attribute" data-export data-readonly data-type="AutoplayPolicy" id="dom-htmlmediaelement-autoplaypolicy"><code><c- g>autoplayPolicy</c-></code></dfn>;
 };
 </pre>
    <p>This represents the current status of whether this <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement④">HTMLMediaElement</a></code> is allowed to autoplay or not.</p>
-   <p>If the result is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed④">allowed</a></code>, that means this media element is allowed to autoplay. If it is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted②">allowed-muted</a></code>, that means this media will only be allowed to autoplay if it’s inaudible. For instance, setting <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume" id="ref-for-dom-media-volume①">volume</a></code> to <code>0</code>, setting <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted" id="ref-for-dom-media-muted①">muted</a></code> to <code>true</code> or the media’s resource doesn’t have an audio track. If web developers adjust media’s attributes to make it audible after the media element successfully starts playing and the media’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy④">autoplayPolicy</a></code> is still <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted③">allowed-muted</a></code>, user agents should pause media immediately because the media element is no longer inaudible.</p>
-   <p>If the result is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑧">disallowed</a></code>, then this media is not allowed to autoplay, and will reject the promise that will be returned from the media element’s <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play">play()</a></code> with <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> exception.</p>
-   <p>If the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑤">autoplayPolicy</a></code> is different from the document element’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy④">autoplayPolicy</a></code>, the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑥">autoplayPolicy</a></code> should be regarded as the final decision for autoplay.</p>
+   <dl class="switch">
+    <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed⑤">allowed</a></code>
+    <dd> This media element is allowed to autoplay. 
+    <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted③">allowed-muted</a></code>
+    <dd> This media element will only be allowed to autoplay if it’s an <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-inaudible-media-element" id="ref-for-dom-autoplaypolicy-inaudible-media-element①">inaudible media element</a></code>.
+        If authors make this media element audible right after the media element started playing, then the user-agent <strong>MUST</strong> pause this media element immediately because it’s no longer inaudible. 
+    <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑦">disallowed</a></code>
+    <dd> This media element is not allowed to autoplay. If authors call its <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play">play()</a></code>, the returned promise from <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play①">play()</a></code> will be rejected with <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> exception. 
+   </dl>
+   <p>If the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy③">autoplayPolicy</a></code> is different from the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy⑤">autoplayPolicy</a></code>, the media element’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy④">autoplayPolicy</a></code> overrides the document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy⑥">autoplayPolicy</a></code>.</p>
    <h2 class="heading settled" data-level="3" id="code-example"><span class="secno">3. </span><span class="content">Examples</span><a class="self-link" href="#code-example"></a></h2>
    <div class="example" id="example-466fa27c">
-    <a class="self-link" href="#example-466fa27c"></a> Example of using Document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy⑤">autoplayPolicy</a></code> 
+    <a class="self-link" href="#example-466fa27c"></a> Example of using Document’s <code class="idl"><a data-link-type="idl" href="#dom-document-autoplaypolicy" id="ref-for-dom-document-autoplaypolicy⑦">autoplayPolicy</a></code> 
 <pre class="lang-javascript highlight"><c- k>switch</c-> <c- p>(</c->document<c- p>.</c->autoplayPolicy<c- p>)</c-> <c- p>{</c->
   <c- k>case</c-> <c- u>"allowed"</c-><c- o>:</c->
     loadUnmutedVideos<c- p>();</c->
@@ -742,7 +775,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </pre>
    </div>
    <div class="example" id="example-9cefe1a3">
-    <a class="self-link" href="#example-9cefe1a3"></a> Example of using HTMLMediaElement’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑦">autoplayPolicy</a></code> 
+    <a class="self-link" href="#example-9cefe1a3"></a> Example of using HTMLMediaElement’s <code class="idl"><a data-link-type="idl" href="#dom-htmlmediaelement-autoplaypolicy" id="ref-for-dom-htmlmediaelement-autoplaypolicy⑤">autoplayPolicy</a></code> 
 <pre class="lang-javascript highlight"><c- a>function</c-> handlePlaySucceeded<c- p>()</c-> <c- p>{</c->
   <c- c1>// Update the control UI to playing</c->
 <c- p>}</c->
@@ -770,11 +803,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </pre>
    </div>
    <h2 class="heading settled" data-level="4" id="security-and-privacy"><span class="secno">4. </span><span class="content">Security and Privacy Considerations</span><a class="self-link" href="#security-and-privacy"></a></h2>
-   <p>Per the <a href="https://www.w3.org/TR/security-privacy-questionnaire/#questions">Self-Review Questionnaire: Security and Privacy §questions</a>.</p>
-   <p>The API introduced in this specification has very low impact with regards to security and privacy. It does not expose any sensitive information that can be used to to identify users. It does not expose any ability to control sensors and any users' devices. It does not introduce any new state for an origin that will persist across browsing sessions. It does not allow an origin to send any data to the underlying platform. It does not introduce or enable new script execution and loading mechanism. It does not allow an origin to over an user agent’s native UI. It does not allow an origin to detect if users are in the private or non-private browsing mode.</p>
+    Per the <a href="https://www.w3.org/TR/security-privacy-questionnaire/#questions">Self-Review Questionnaire: Security and Privacy §questions</a>. 
+   <p>The API introduced in this specification has very low impact with regards to security and privacy. It does not expose any sensitive information that can be used to to identify users. It does not expose any ability to control sensors and any users' devices. It does not introduce any new state for an origin that will persist across browsing sessions. It does not allow an origin to send any data to the underlying platform. It does not introduce or enable new script execution and loading mechanism. It does not allow an origin to draw over a user-agent’s native UI. It does not allow an origin to detect if users are in the private or non-private browsing mode.</p>
    <h2 class="heading settled" data-level="5" id="acknowledgements"><span class="secno">5. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgements"></a></h2>
     This specification is the collective work of the <a href="https://www.w3.org/media-wg/">W3C media Working Group</a>. 
-   <p>The editors would like to thank [TBD] for their contributions to this specification.</p>
+   <p>The editors would like to thank Alastor Wu, Becca Hughes, Chris Pearce, Dale Curtis, Eric Carlson, Gary Katsevmanfor, Jer Noble, Mattias Buelens, Mounir Lamouri, Paul Adenot and Tom Jenkinson for their contributions to this specification.</p>
    <p id="back-to-top" role="navigation"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
 <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
   </main>
@@ -794,22 +827,22 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </ul>
    <li><a href="#dom-autoplaypolicy-disallowed">"disallowed"</a><span>, in §2.1</span>
    <li><a href="#dom-autoplaypolicy-disallowed">disallowed</a><span>, in §2.1</span>
+   <li><a href="#dom-autoplaypolicy-inaudible-media-element">inaudible media element</a><span>, in §2.1</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-document">
    <a href="https://dom.spec.whatwg.org/#document">https://dom.spec.whatwg.org/#document</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-document">Unnumbered Section</a>
-    <li><a href="#ref-for-document①">2. The Autoplay Detection API</a>
-    <li><a href="#ref-for-document②">2.2. Document API</a> <a href="#ref-for-document③">(2)</a>
+    <li><a href="#ref-for-document">2. The Autoplay Detection API</a>
+    <li><a href="#ref-for-document①">2.2. The Document API</a> <a href="#ref-for-document②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-htmlmediaelement">
    <a href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement">https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-htmlmediaelement">Unnumbered Section</a>
-    <li><a href="#ref-for-htmlmediaelement①">1. Introduction</a>
-    <li><a href="#ref-for-htmlmediaelement②">2. The Autoplay Detection API</a>
-    <li><a href="#ref-for-htmlmediaelement③">2.3. HTMLMediaElement API</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
+    <li><a href="#ref-for-htmlmediaelement">1. Introduction</a>
+    <li><a href="#ref-for-htmlmediaelement①">2. The Autoplay Detection API</a>
+    <li><a href="#ref-for-htmlmediaelement②">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-htmlmediaelement③">2.3. The HTMLMediaElement API</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-audio">
@@ -822,13 +855,18 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted">https://html.spec.whatwg.org/multipage/media.html#dom-media-muted</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-media-muted">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-dom-media-muted①">2.3. HTMLMediaElement API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-media-play">
    <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play">https://html.spec.whatwg.org/multipage/media.html#dom-media-play</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-media-play">2.3. HTMLMediaElement API</a>
+    <li><a href="#ref-for-dom-media-play">2.3. The HTMLMediaElement API</a> <a href="#ref-for-dom-media-play①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sticky-activation">
+   <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sticky-activation">2.2. The Document API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-video">
@@ -841,7 +879,6 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume">https://html.spec.whatwg.org/multipage/media.html#dom-media-volume</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-media-volume">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-dom-media-volume①">2.3. HTMLMediaElement API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-elementdef-image">
@@ -850,10 +887,16 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <li><a href="#ref-for-elementdef-image">1. Introduction</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-audiocontext">
+   <a href="https://webaudio.github.io/web-audio-api/#audiocontext">https://webaudio.github.io/web-audio-api/#audiocontext</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-audiocontext">2.2. The Document API</a> <a href="#ref-for-audiocontext①">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-notallowederror">
    <a href="https://heycam.github.io/webidl/#notallowederror">https://heycam.github.io/webidl/#notallowederror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-notallowederror">2.3. HTMLMediaElement API</a>
+    <li><a href="#ref-for-notallowederror">2.3. The HTMLMediaElement API</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -870,6 +913,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <li><span class="dfn-paneled" id="term-for-audio">audio</span>
      <li><span class="dfn-paneled" id="term-for-dom-media-muted">muted</span>
      <li><span class="dfn-paneled" id="term-for-dom-media-play">play()</span>
+     <li><span class="dfn-paneled" id="term-for-sticky-activation">sticky activation</span>
      <li><span class="dfn-paneled" id="term-for-video">video</span>
      <li><span class="dfn-paneled" id="term-for-dom-media-volume">volume</span>
     </ul>
@@ -877,6 +921,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <a data-link-type="biblio">[SVG2]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-elementdef-image">image</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[webaudio]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-audiocontext">AudioContext</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
@@ -922,48 +971,56 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <aside class="dfn-panel" data-for="enumdef-autoplaypolicy">
    <b><a href="#enumdef-autoplaypolicy">#enumdef-autoplaypolicy</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-enumdef-autoplaypolicy">2.2. Document API</a>
-    <li><a href="#ref-for-enumdef-autoplaypolicy①">2.3. HTMLMediaElement API</a>
+    <li><a href="#ref-for-enumdef-autoplaypolicy">2.2. The Document API</a>
+    <li><a href="#ref-for-enumdef-autoplaypolicy①">2.3. The HTMLMediaElement API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-autoplaypolicy-allowed">
    <b><a href="#dom-autoplaypolicy-allowed">#dom-autoplaypolicy-allowed</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed①">2.2. Document API</a> <a href="#ref-for-dom-autoplaypolicy-allowed②">(2)</a> <a href="#ref-for-dom-autoplaypolicy-allowed③">(3)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed④">2.3. HTMLMediaElement API</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed">2.1. Autoplay Policy Enum</a> <a href="#ref-for-dom-autoplaypolicy-allowed①">(2)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed②">2.2. The Document API</a> <a href="#ref-for-dom-autoplaypolicy-allowed③">(2)</a> <a href="#ref-for-dom-autoplaypolicy-allowed④">(3)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed⑤">2.3. The HTMLMediaElement API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-autoplaypolicy-allowed-muted">
    <b><a href="#dom-autoplaypolicy-allowed-muted">#dom-autoplaypolicy-allowed-muted</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted①">2.2. Document API</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted②">2.3. HTMLMediaElement API</a> <a href="#ref-for-dom-autoplaypolicy-allowed-muted③">(2)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted">2.1. Autoplay Policy Enum</a> <a href="#ref-for-dom-autoplaypolicy-allowed-muted①">(2)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted②">2.2. The Document API</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted③">2.3. The HTMLMediaElement API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-autoplaypolicy-inaudible-media-element">
+   <b><a href="#dom-autoplaypolicy-inaudible-media-element">#dom-autoplaypolicy-inaudible-media-element</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-autoplaypolicy-inaudible-media-element">2.2. The Document API</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-inaudible-media-element①">2.3. The HTMLMediaElement API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-autoplaypolicy-disallowed">
    <b><a href="#dom-autoplaypolicy-disallowed">#dom-autoplaypolicy-disallowed</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-disallowed">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-disallowed①">2.2. Document API</a> <a href="#ref-for-dom-autoplaypolicy-disallowed②">(2)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed③">(3)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed④">(4)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑤">(5)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑥">(6)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑦">(7)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-disallowed⑧">2.3. HTMLMediaElement API</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-disallowed">2.1. Autoplay Policy Enum</a> <a href="#ref-for-dom-autoplaypolicy-disallowed①">(2)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-disallowed②">2.2. The Document API</a> <a href="#ref-for-dom-autoplaypolicy-disallowed③">(2)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed④">(3)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑤">(4)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑥">(5)</a>
+    <li><a href="#ref-for-dom-autoplaypolicy-disallowed⑦">2.3. The HTMLMediaElement API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-document-autoplaypolicy">
    <b><a href="#dom-document-autoplaypolicy">#dom-document-autoplaypolicy</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-document-autoplaypolicy">2.2. Document API</a> <a href="#ref-for-dom-document-autoplaypolicy①">(2)</a> <a href="#ref-for-dom-document-autoplaypolicy②">(3)</a> <a href="#ref-for-dom-document-autoplaypolicy③">(4)</a>
-    <li><a href="#ref-for-dom-document-autoplaypolicy④">2.3. HTMLMediaElement API</a>
-    <li><a href="#ref-for-dom-document-autoplaypolicy⑤">3. Examples</a>
+    <li><a href="#ref-for-dom-document-autoplaypolicy">1. Introduction</a>
+    <li><a href="#ref-for-dom-document-autoplaypolicy①">2.2. The Document API</a> <a href="#ref-for-dom-document-autoplaypolicy②">(2)</a> <a href="#ref-for-dom-document-autoplaypolicy③">(3)</a> <a href="#ref-for-dom-document-autoplaypolicy④">(4)</a>
+    <li><a href="#ref-for-dom-document-autoplaypolicy⑤">2.3. The HTMLMediaElement API</a> <a href="#ref-for-dom-document-autoplaypolicy⑥">(2)</a>
+    <li><a href="#ref-for-dom-document-autoplaypolicy⑦">3. Examples</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-htmlmediaelement-autoplaypolicy">
    <b><a href="#dom-htmlmediaelement-autoplaypolicy">#dom-htmlmediaelement-autoplaypolicy</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy">2.2. Document API</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy①">(2)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy②">(3)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy③">(4)</a>
-    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy④">2.3. HTMLMediaElement API</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑤">(2)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑥">(3)</a>
-    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑦">3. Examples</a>
+    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy">2.2. The Document API</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy①">(2)</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy②">(3)</a>
+    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy③">2.3. The HTMLMediaElement API</a> <a href="#ref-for-dom-htmlmediaelement-autoplaypolicy④">(2)</a>
+    <li><a href="#ref-for-dom-htmlmediaelement-autoplaypolicy⑤">3. Examples</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

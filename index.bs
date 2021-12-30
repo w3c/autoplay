@@ -60,8 +60,8 @@ div.enum-description > table > thead > tr > th {
 
 <h2 id="autoplay-detection-api">The Autoplay Detection API</h2>
   Autoplay detection can be performed through the {{Navigator}} object. The
-  result can either allow authors to know if autoplay media, which have the same
-  type of the queried constructor and exist in the {{document}} contained in the
+  result can either allow authors to know if media, which have the same type of
+  the queried constructor and exist in the {{document}} contained in the
   {{Window}} object asscociated with the queried {{Navigator}} object, are
   allowed to autoplay, or to know if a specific element is allowed to autoplay.
 
@@ -119,7 +119,7 @@ div.enum-description > table > thead > tr > th {
     <div class=example>
       If a user-agent uses the user activation, described in
       [[HTML#user-activation-data-model]], to determine if the autoplay media
-      are allowed or not, and the default policy is to blocks all autoplay
+      are allowed or not, and the default policy is to block all autoplay
       ({{AutoplayPolicy/disallowed}}). Then the policy could change to
       {{AutoplayPolicy/allowed}} or {{AutoplayPolicy/allowed-muted}} after a
       user performs a supported user gesture on the page or the media.
@@ -239,8 +239,9 @@ div.enum-description > table > thead > tr > th {
           means {{inaudible media element}}.
 
           In addition, if authors make an inaudible media element audible
-          right after it starts playing, then the user-agent **MUST** pause
-          that media element immediately because it's no longer inaudible.
+          right after it starts playing, then it is **recommended** for a
+          user-agent to pause that media element immediately because it's no
+          longer inaudible.
         </div>
       </dd>
 

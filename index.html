@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version 800b43329, updated Tue May 25 14:13:32 2021 -0700" name="generator">
   <link href="https://w3c.github.io/autoplay/" rel="canonical">
-  <meta content="93669462ea9f319f298101e93ac945b406f35e48" name="document-revision">
+  <meta content="e31fe99b1e1bd655161ce236d96d1e47f199bd1f" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -598,7 +598,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Autoplay Policy Detection</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-12-22">22 December 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-12-29">29 December 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -681,8 +681,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <p>Currently, this specification only handles <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement">HTMLMediaElement</a></code> (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#video" id="ref-for-video">video</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#audio" id="ref-for-audio">audio</a></code>) and <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/webaudio/">Web Audio API</a>. This specification does not handle <a data-biblio-display="inline" data-link-type="biblio" href="https://wicg.github.io/speech-api/">Web Speech API</a> and animated <code><a data-link-type="element" href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image" id="ref-for-elementdef-image">image</a></code> (GIF animation).</p>
    <h2 class="heading settled" data-level="2" id="autoplay-detection-api"><span class="secno">2. </span><span class="content">The Autoplay Detection API</span><a class="self-link" href="#autoplay-detection-api"></a></h2>
     Autoplay detection can be performed through the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator">Navigator</a></code> object. The
-  result can either allow authors to know if autoplay media, which have the same
-  type of the queried constructor and exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2" id="ref-for-dom-document-2">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code> object asscociated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code> object, are
+  result can either allow authors to know if media, which have the same type of
+  the queried constructor and exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2" id="ref-for-dom-document-2">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code> object asscociated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code> object, are
   allowed to autoplay, or to know if a specific element is allowed to autoplay. 
    <h3 class="heading settled" data-level="2.1" id="autoplay-policy"><span class="secno">2.1. </span><span class="content">Autoplay Policy Enum</span><a class="self-link" href="#autoplay-policy"></a></h3>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-autoplaypolicy"><code><c- g>AutoplayPolicy</c-></code></dfn> {
@@ -721,8 +721,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       user-agent allows media to autoplay, which can <strong>vary</strong> in the future.
       Therefore, it is <strong>recommended</strong> that authors check the result every time
       if they want to have an up-to-date result. </div>
-   <div class="example" id="example-8d1d4e79"><a class="self-link" href="#example-8d1d4e79"></a> If a user-agent uses the user activation, described in <a href="https://html.spec.whatwg.org/multipage/interaction.html#user-activation-data-model">HTML 5 §6.3.1 Data model</a>, to determine if the autoplay media
-      are allowed or not, and the default policy is to blocks all autoplay
+   <div class="example" id="example-f4c501c1"><a class="self-link" href="#example-f4c501c1"></a> If a user-agent uses the user activation, described in <a href="https://html.spec.whatwg.org/multipage/interaction.html#user-activation-data-model">HTML 5 §6.3.1 Data model</a>, to determine if the autoplay media
+      are allowed or not, and the default policy is to block all autoplay
       (<code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed①">disallowed</a></code>). Then the policy could change to <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed①">allowed</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed-muted" id="ref-for-dom-autoplaypolicy-allowed-muted①">allowed-muted</a></code> after a
       user performs a supported user gesture on the page or the media. </div>
    <h3 class="heading settled" data-level="2.2" id="autoplay-detection-methods"><span class="secno">2.2. </span><span class="content">The Autoplay Detection Methods</span><a class="self-link" href="#autoplay-detection-methods"></a></h3>
@@ -806,8 +806,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
           constructor is the type of <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑥">HTMLMediaElement</a></code>. The inaudible media
           means <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-inaudible-media-element" id="ref-for-dom-autoplaypolicy-inaudible-media-element①">inaudible media element</a></code>. 
       <p>In addition, if authors make an inaudible media element audible
-          right after it starts playing, then the user-agent <strong>MUST</strong> pause
-          that media element immediately because it’s no longer inaudible.</p>
+          right after it starts playing, then it is <strong>recommended</strong> for a
+          user-agent to pause that media element immediately because it’s no
+          longer inaudible.</p>
      </div>
     <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed⑦">disallowed</a></code>
     <dd>

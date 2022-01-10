@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version 800b43329, updated Tue May 25 14:13:32 2021 -0700" name="generator">
   <link href="https://w3c.github.io/autoplay/" rel="canonical">
-  <meta content="b3fdf219752f0bdf7e9b58d282633e28b2fbd1eb" name="document-revision">
+  <meta content="f370977f94abc70876bb6a932c402515a35c7a85" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -753,6 +753,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed②">disallowed</a></code>
     <dd> <strong>None</strong> of media are allowed to autoplay. 
    </dl>
+   <p>If the constructor which authors pass is not a constructor of <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑤">HTMLMediaElement</a></code> or <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext①">AudioContext</a></code>, then these methods will throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
    <div class="note" role="note"> Note: Depending on the implementation, it’s still possible for some media
       that exist on the same document would be allowed to autoplay when the
       result of querying by a contructor is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed③">disallowed</a></code>. In this situation,
@@ -787,9 +788,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <h4 class="heading settled" data-level="2.2.2" id="query-by-a-element"><span class="secno">2.2.2. </span><span class="content">Query by an Element</span><a class="self-link" href="#query-by-a-element"></a></h4>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator⑥"><c- g>Navigator</c-></a> {
-  <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy②"><c- n>AutoplayPolicy</c-></a> <dfn class="idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export data-lt="getAutoplayPolicy(element)" id="dom-navigator-getautoplaypolicy-element"><code><c- g>getAutoplayPolicy</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-element"></a></dfn>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑤"><c- n>HTMLMediaElement</c-></a> <dfn class="idl-code" data-dfn-for="Navigator/getAutoplayPolicy(element)" data-dfn-type="argument" data-export id="dom-navigator-getautoplaypolicy-element-element"><code><c- g>element</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-element-element"></a></dfn>);
+  <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy②"><c- n>AutoplayPolicy</c-></a> <dfn class="idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export data-lt="getAutoplayPolicy(element)" id="dom-navigator-getautoplaypolicy-element"><code><c- g>getAutoplayPolicy</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-element"></a></dfn>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑥"><c- n>HTMLMediaElement</c-></a> <dfn class="idl-code" data-dfn-for="Navigator/getAutoplayPolicy(element)" data-dfn-type="argument" data-export id="dom-navigator-getautoplaypolicy-element-element"><code><c- g>element</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-element-element"></a></dfn>);
 
-  <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy③"><c- n>AutoplayPolicy</c-></a> <dfn class="idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export data-lt="getAutoplayPolicy(context)" id="dom-navigator-getautoplaypolicy-context"><code><c- g>getAutoplayPolicy</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-context"></a></dfn>(<a data-link-type="idl-name" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext①"><c- n>AudioContext</c-></a> <dfn class="idl-code" data-dfn-for="Navigator/getAutoplayPolicy(context)" data-dfn-type="argument" data-export id="dom-navigator-getautoplaypolicy-context-context"><code><c- g>context</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-context-context"></a></dfn>);
+  <a data-link-type="idl-name" href="#enumdef-autoplaypolicy" id="ref-for-enumdef-autoplaypolicy③"><c- n>AutoplayPolicy</c-></a> <dfn class="idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export data-lt="getAutoplayPolicy(context)" id="dom-navigator-getautoplaypolicy-context"><code><c- g>getAutoplayPolicy</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-context"></a></dfn>(<a data-link-type="idl-name" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext②"><c- n>AudioContext</c-></a> <dfn class="idl-code" data-dfn-for="Navigator/getAutoplayPolicy(context)" data-dfn-type="argument" data-export id="dom-navigator-getautoplaypolicy-context-context"><code><c- g>context</c-></code><a class="self-link" href="#dom-navigator-getautoplaypolicy-context-context"></a></dfn>);
 };
 </pre>
    <p>This represents the current status of whether the queried element is
@@ -803,7 +804,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       This element will only be allowed to autoplay if it’s inaudible. 
      <div class="note" role="note">
        Note: Currently, this attribute will only be returned when a queried
-          constructor is the type of <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑥">HTMLMediaElement</a></code>. The inaudible media
+          constructor is the type of <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑦">HTMLMediaElement</a></code>. The inaudible media
           means <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-inaudible-media-element" id="ref-for-dom-autoplaypolicy-inaudible-media-element①">inaudible media element</a></code>. 
       <p>In addition, if authors make an inaudible media element audible
           right after it starts playing, then it is <strong>recommended</strong> for a
@@ -814,14 +815,15 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <dd>
       This element is not allowed to autoplay. 
      <div class="note" role="note">
-       Note: For <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑦">HTMLMediaElement</a></code>, if authors call its <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play">play()</a></code>, the returned promise from <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play①">play()</a></code> will be rejected with <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> exception. 
-      <p>For <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext②">AudioContext</a></code>, that means its <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate" id="ref-for-enumdef-audiocontextstate">AudioContextState</a></code> would keep
+       Note: For <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑧">HTMLMediaElement</a></code>, if authors call its <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play">play()</a></code>, the returned promise from <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play" id="ref-for-dom-media-play①">play()</a></code> will be rejected with <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> exception. 
+      <p>For <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext③">AudioContext</a></code>, that means its <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate" id="ref-for-enumdef-audiocontextstate">AudioContextState</a></code> would keep
           in <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#dom-audiocontextstate-suspended" id="ref-for-dom-audiocontextstate-suspended">suspended</a></code> state.</p>
      </div>
    </dl>
    <p>If the result of querying by a constructor is different from the result
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.</p>
+   <p>If the element which authors pass is not <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑨">HTMLMediaElement</a></code> or <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext④">AudioContext</a></code>, then these methods will throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror①">TypeError</a></code>.</p>
    <h2 class="heading settled" data-level="3" id="code-example"><span class="secno">3. </span><span class="content">Examples</span><a class="self-link" href="#code-example"></a></h2>
    <div class="example" id="example-62671621">
     <a class="self-link" href="#example-62671621"></a> An example for checking whether authors can autoplay a media element. 
@@ -835,7 +837,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </pre>
    </div>
    <div class="example" id="example-ccac261d">
-    <a class="self-link" href="#example-ccac261d"></a> An example for checking whether authors can start an audio context. <a href="https://webaudio.github.io/web-audio-api/#allowed-to-start">Web Audio</a> uses <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation" id="ref-for-sticky-activation">sticky activation</a> to determine if <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext③">AudioContext</a></code> can be allowed
+    <a class="self-link" href="#example-ccac261d"></a> An example for checking whether authors can start an audio context. <a href="https://webaudio.github.io/web-audio-api/#allowed-to-start">Web Audio</a> uses <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation" id="ref-for-sticky-activation">sticky activation</a> to determine if <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext⑤">AudioContext</a></code> can be allowed
     to start. 
 <pre class="lang-javascript highlight"><c- k>if</c-> <c- p>(</c->navigator<c- p>.</c->getAutoplayPolicy<c- p>(</c->AudioContext<c- p>)</c-> <c- o>===</c-> <c- u>"allowed"</c-><c- p>)</c-> <c- p>{</c->
   <c- a>let</c-> ac <c- o>=</c-> <c- k>new</c-> AudioContext<c- p>();</c->
@@ -881,7 +883,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </pre>
    </div>
    <div class="example" id="example-a0870972">
-    <a class="self-link" href="#example-a0870972"></a> Example of querying by a specific audio context. <a href="https://webaudio.github.io/web-audio-api/#allowed-to-start">Web Audio</a> uses <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation" id="ref-for-sticky-activation①">sticky activation</a> to determine if <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext④">AudioContext</a></code> can be allowed
+    <a class="self-link" href="#example-a0870972"></a> Example of querying by a specific audio context. <a href="https://webaudio.github.io/web-audio-api/#allowed-to-start">Web Audio</a> uses <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation" id="ref-for-sticky-activation①">sticky activation</a> to determine if <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext⑥">AudioContext</a></code> can be allowed
     to start. 
 <pre class="lang-javascript highlight"><c- a>let</c-> ac <c- o>=</c-> <c- k>new</c-> AudioContext<c- p>();</c->
 <c- k>if</c-> <c- p>(</c->navigator<c- p>.</c->getAutoplayPolicy<c- p>(</c->ac<c- p>)</c-> <c- o>===</c-> <c- u>"allowed"</c-><c- p>)</c-> <c- p>{</c->
@@ -945,8 +947,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <ul>
     <li><a href="#ref-for-htmlmediaelement">1. Introduction</a>
     <li><a href="#ref-for-htmlmediaelement①">2.1. Autoplay Policy Enum</a> <a href="#ref-for-htmlmediaelement②">(2)</a>
-    <li><a href="#ref-for-htmlmediaelement③">2.2.1. Query by a Constructor</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
-    <li><a href="#ref-for-htmlmediaelement⑤">2.2.2. Query by an Element</a> <a href="#ref-for-htmlmediaelement⑥">(2)</a> <a href="#ref-for-htmlmediaelement⑦">(3)</a>
+    <li><a href="#ref-for-htmlmediaelement③">2.2.1. Query by a Constructor</a> <a href="#ref-for-htmlmediaelement④">(2)</a> <a href="#ref-for-htmlmediaelement⑤">(3)</a>
+    <li><a href="#ref-for-htmlmediaelement⑥">2.2.2. Query by an Element</a> <a href="#ref-for-htmlmediaelement⑦">(2)</a> <a href="#ref-for-htmlmediaelement⑧">(3)</a> <a href="#ref-for-htmlmediaelement⑨">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-navigator">
@@ -1016,9 +1018,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <aside class="dfn-panel" data-for="term-for-audiocontext">
    <a href="https://webaudio.github.io/web-audio-api/#audiocontext">https://webaudio.github.io/web-audio-api/#audiocontext</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-audiocontext">2.2.1. Query by a Constructor</a>
-    <li><a href="#ref-for-audiocontext①">2.2.2. Query by an Element</a> <a href="#ref-for-audiocontext②">(2)</a>
-    <li><a href="#ref-for-audiocontext③">3. Examples</a> <a href="#ref-for-audiocontext④">(2)</a>
+    <li><a href="#ref-for-audiocontext">2.2.1. Query by a Constructor</a> <a href="#ref-for-audiocontext①">(2)</a>
+    <li><a href="#ref-for-audiocontext②">2.2.2. Query by an Element</a> <a href="#ref-for-audiocontext③">(2)</a> <a href="#ref-for-audiocontext④">(3)</a>
+    <li><a href="#ref-for-audiocontext⑤">3. Examples</a> <a href="#ref-for-audiocontext⑥">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-enumdef-audiocontextstate">
@@ -1044,6 +1046,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <a href="https://heycam.github.io/webidl/#notallowederror">https://heycam.github.io/webidl/#notallowederror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-notallowederror">2.2.2. Query by an Element</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
+   <a href="https://heycam.github.io/webidl/#exceptiondef-typeerror">https://heycam.github.io/webidl/#exceptiondef-typeerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-exceptiondef-typeerror">2.2.1. Query by a Constructor</a>
+    <li><a href="#ref-for-exceptiondef-typeerror①">2.2.2. Query by an Element</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -1079,6 +1088,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <ul>
      <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
      <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>

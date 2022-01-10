@@ -168,6 +168,10 @@ div.enum-description > table > thead > tr > th {
       </dd>
     </dl>
 
+      If the constructor which authors pass is not a constructor of
+      {{HTMLMediaElement}} or {{AudioContext}}, then these methods will throw a
+      {{TypeError}}.
+
     <div class="note">
       Note: Depending on the implementation, it's still possible for some media
       that exist on the same document would be allowed to autoplay when the
@@ -263,6 +267,9 @@ div.enum-description > table > thead > tr > th {
     If the result of querying by a constructor is different from the result
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.
+
+    If the element which authors pass is not {{HTMLMediaElement}} or
+    {{AudioContext}}, then these methods will throw a {{TypeError}}.
 
 <h2 id="code-example">Examples</h2>
   <div class=example>

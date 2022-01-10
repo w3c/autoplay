@@ -210,7 +210,7 @@ div.enum-description > table > thead > tr > th {
       finer-grained autoplay control.
     </div>
 
-  <h4 id="query-by-a-element">Query by a Element</h3>
+  <h4 id="query-by-a-element">Query by an Element</h3>
     <pre class="idl">
       [Exposed=Window]
       partial interface Navigator {
@@ -261,7 +261,7 @@ div.enum-description > table > thead > tr > th {
     </dl>
 
     If the result of querying by a constructor is different from the result
-    of querying by a element, authors should take the latter one as a correct
+    of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.
 
 <h2 id="code-example">Examples</h2>
@@ -309,7 +309,7 @@ div.enum-description > table > thead > tr > th {
       }
       function handlePlayFailed() {
         // Show a button to allow users to explicitly start the video and
-        // display a image element as poster to replace the video.
+        // display an image element as poster to replace the video.
       }
 
       let video = document.getElementById("video");

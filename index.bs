@@ -4,9 +4,8 @@ Shortname: autoplay-detection
 Level: 1
 Status: w3c/ED
 Group: mediawg
-URL: http://example.com/url-this-spec-will-live-at
+URL: https://w3c.github.io/autoplay/
 Editor: Alastor Wu, Mozilla https://www.mozilla.org, alwu@mozilla.com
-Editor: Paul Adenot, Mozilla https://www.mozilla.org, padenot@mozilla.com
 Abstract: This specification provides web developers the ability to detect if automatically starting the playback of a media file is allowed in different situations.
 Markup Shorthands: markdown on
 </pre>
@@ -56,18 +55,15 @@ div.enum-description > table > thead > tr > th {
   save the bandwidth and CPU usage for users.
 
   Currently, this specification only handles {{HTMLMediaElement}} (<{video}>
-  and <{audio}>) and does not handle [[webaudio inline]], [[speech-api inline]]
-  and animated <{image}> (GIF animation). Although the result from the document's
-  {{Document/autoplayPolicy}} can be used to detect whether web audio can be
-  started if user-agents block web audio from autoplaying.
+  and <{audio}>) and [[webaudio inline]]. This specification does not handle
+  [[speech-api inline]] and animated <{image}> (GIF animation).
 
 <h2 id="autoplay-detection-api">The Autoplay Detection API</h2>
-  Autoplay detection can be performed on either the {{Document}} element or on
-  the {{HTMLMediaElement}}. The former provides a general idea to authors to
-  know if autoplay media is allowed on this document element. If the page
-  contains multiple documents, an implementation can decide to return different
-  results for each of them. The latter provides more accurate result for whether
-  the autoplay is allowed on a specific media element.
+  Autoplay detection can be performed through the {{Navigator}} object. The
+  result can either allow authors to know if media, which have the same type of
+  the queried constructor and exist in the {{document}} contained in the
+  {{Window}} object asscociated with the queried {{Navigator}} object, are
+  allowed to autoplay, or to know if a specific element is allowed to autoplay.
 
   <h3 id="autoplay-policy">Autoplay Policy Enum</h3>
     <pre class="idl">
@@ -93,13 +89,17 @@ div.enum-description > table > thead > tr > th {
           <td>
             "<dfn>allowed-muted</dfn>"
           <td>
-            Inaudible media element</dfn> are allowed to autoplay. An
-            <dfn export>inaudible media element</dfn> is an {{HTMLMediaElement}}
+            <dfn>Inaudible media</dfn> are allowed to autoplay.
+            <div class="note">
+              Note: Currently, this attribute will only be returned when a queried
+              object or a constructor is a type of {{HTMLMediaElement}}.
+            </div>
+            An <dfn export>inaudible media element</dfn> is an {{HTMLMediaElement}}
             that has any of the following conditions:
             <ul>
-              <li> media's {{HTMLMediaElement/volume}} equal to 0
-              <li> media's {{HTMLMediaElement/muted}} is true
-              <li> media's <a href="https://html.spec.whatwg.org/multipage/media.html#media-resource">resource</a> does not have an audio track
+              <li>media's {{HTMLMediaElement/volume}} equal to 0
+              <li>media's {{HTMLMediaElement/muted}} is true
+              <li>media's <a href="https://html.spec.whatwg.org/multipage/media.html#media-resource">resource</a> does not have an audio track
             </ul>
         <tr>
           <td>
@@ -113,186 +113,207 @@ div.enum-description > table > thead > tr > th {
       Note: The autoplay policy represents the current status of whether a
       user-agent allows media to autoplay, which can **vary** in the future.
       Therefore, it is **recommended** that authors check the result every time
-      they want to have an up-to-date result.
+      if they want to have an up-to-date result.
     </div>
 
     <div class=example>
       If a user-agent uses the user activation, described in
       [[HTML#user-activation-data-model]], to determine if the autoplay media
-      are allowed or not, and it blocks all autoplay by default
-      ({{AutoplayPolicy/disallowed}}). Then the policy can change to
+      are allowed or not, and the default policy is to block all autoplay
+      ({{AutoplayPolicy/disallowed}}). Then the policy could change to
       {{AutoplayPolicy/allowed}} or {{AutoplayPolicy/allowed-muted}} after a
       user performs a supported user gesture on the page or the media.
     </div>
 
-  <h3 id="document-api">The Document API</h3>
-    <pre class="idl">
-    partial interface Document {
-      readonly attribute AutoplayPolicy autoplayPolicy;
-    };
-    </pre>
-    This represents a rough status of whether media that belong to this
-    {{Document}} are allowed to autoplay or not.
+  <h3 id="autoplay-detection-methods">The Autoplay Detection Methods</h3>
+    <h4 id="query-by-a-constructor">Query by a Constructor</h4>
+      <pre class="idl">
+        callback HTMLMediaElementConstructor = HTMLMediaElement ();
+        callback AudioContextConstructor = AudioContext ();
+
+        [Exposed=Window]
+        partial interface Navigator {
+          AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor ctor);
+
+          AutoplayPolicy getAutoplayPolicy(AudioContextConstructor ctor);
+        };
+      </pre>
+
+      This represents a rough status of whether media, which have the same type
+      of the queried constructor and exist in the {{document}} contained in the
+      {{Window}} object asscociated with the queried {{Navigator}} object, are
+      allowed to autoplay or not. The media terms appearing in the next
+      following if-statement have the same definition as above description.
 
     <dl class="switch">
       <dt>If the value is {{allowed}}</dt>
       <dd>
-        All media that belong to this document are allowed to autoplay.
+        All media are allowed to autoplay.
       </dd>
 
       <dt>If the value is {{allowed-muted}}</dt>
       <dd>
-        All {{inaudible media element}} that belong to this document are allowed
+        All inaudible media are allowed to autoplay.
         to autoplay.
+        <div class="note">
+          Note: Currently, this attribute will only be returned when the queried
+          constructor is {{HTMLMediaElement}}. The inaudible media means
+          {{inaudible media element}}.
+        </div>
       </dd>
 
       <dt>If the value is {{disallowed}}</dt>
       <dd>
-        **None** of media belongs to this document are allowed to autoplay.
+        **None** of media are allowed to autoplay.
       </dd>
     </dl>
 
     <div class="note">
       Note: Depending on the implementation, it's still possible for some media
-      that exist on the same document to be allowed to autoplay when the
-      document {{Document/autoplayPolicy}} returns {{disallowed}}. It is
-      **recommended** that authors check each media element’s autoplayPolicy
-      in order to get a complete result when document’s autoplayPolicy is
-      disallowed, if authors want to use that as a result to determine whether
-      media can be started playing.
+      that exist on the same document would be allowed to autoplay when the
+      result of querying by a contructor is {{disallowed}}. In this situation,
+      it is **recommended** that authors also query by a specific element in
+      order to get an accurate result.
     </div>
 
     <div class=example>
-      Some user-agents may not allow any media to autoplay by default, but allow
-      autoplay on those media elements which have been clicked by users. In this
-      case, at first, both the document's {{Document/autoplayPolicy}} and the
-      media element's {{HTMLMediaElement/autoplayPolicy}} will be {{disallowed}}.
+      Some user-agents may not allow any media element to autoplay by default,
+      but allow autoplay on those media elements which have been clicked by
+      users.
 
-      However, after a user clicks on a media element, then this media element's
-      {{HTMLMediaElement/autoplayPolicy}} might become {{allowed}} if a
-      user-agent decides to bless this element because that seems intended by
-      users. In this case, the document's {{Document/autoplayPolicy}} and other
-      media elements' {{HTMLMediaElement/autoplayPolicy}} (if any), which
-      haven't been clicked yet and are on the same document, will still be
-      {{disallowed}}.
+      For example, at first, the result of querying by a contructor and
+      querying by a object would both be {{disallowed}}. After a user clicks on
+      a media element, then querying by that media element would become
+      {{allowed}} if a user-agent decides to bless that element because that
+      behavior seems intended by users, but querying by a contructor and querying
+      by other media elements, which haven't been clicked yet, would still
+      return {{disallowed}}.
     </div>
 
     <div class="note">
-      Note: If the document has child documents, then the result from child
-      documents could be different from the result of their parent documents
-      depending on the implementation.
+      Note: Depending on the implementation, if a document has child
+      documents, then the result queried from the {{Navigator}} object
+      asscociated with the parent document could be different from the result
+      queried from the {{Navigator}} object asscociated with the child
+      documents.
     </div>
 
     <div class=example>
       Assume that the top level document A in `foo.com` returns {{allowed}} and
       it has an embedded iframe, which has another document B from `bar.com`. A
-      user-agent could either make child document B return the same result that
-      is inherited from the top level document A. Or make the document B return
-      a different result, eg. {{disallowed}}.
+      user-agent could either make child document B return same result that is
+      inherited from the top level document A. Or make the document B return a
+      different result, eg. {{disallowed}}.
 
       Doing the former helps to lower the complexity and make the behavior of
       blocking autoplay more consistent. The latter helps providing a
       finer-grained autoplay control.
     </div>
 
-    <div class="note">
-      Note: In addition, document's {{Document/autoplayPolicy}} can also be
-      used to know whether [[webaudio inline]] can be allowed to start if a
-      user-agent blocks web audio by default.
-    </div>
-
-    <div class=example>
-      [Web Audio](https://webaudio.github.io/web-audio-api/#allowed-to-start)
-      uses [=sticky activation=] to determine if {{AudioContext}} can be allowed
-      to start. If the document is allowed to autoplay, then {{AudioContext}}
-      should also be allowed to start.
-
-      <pre class="lang-javascript">
-        var ac = new AudioContext;
-        if (document.autoplayPolicy === "allowed") {
-          ac.onstatechange = function() {
-            if (ac.state === "running") {
-              // Start running audio app
-            } else {
-              // Display a bit of UI to ask the user to start the audio app.
-              // Audio starts via calling ac.resume() from a handler, and
-              // 'onstatechange' allows knowing when the audio stack is ready.
-            }
-          }
-        }
-      </pre>
-    </div>
-
-  <h3 id="media-element-api">The HTMLMediaElement API</h3>
+  <h4 id="query-by-a-element">Query by an Element</h3>
     <pre class="idl">
-    partial interface HTMLMediaElement {
-      readonly attribute AutoplayPolicy autoplayPolicy;
-    };
+      [Exposed=Window]
+      partial interface Navigator {
+        AutoplayPolicy getAutoplayPolicy(HTMLMediaElement element);
+
+        AutoplayPolicy getAutoplayPolicy(AudioContext context);
+      };
     </pre>
-    This represents the current status of whether this {{HTMLMediaElement}} is
+    This represents the current status of whether the queried element is
     allowed to autoplay or not.
 
     <dl class="switch">
       <dt>If the value is {{allowed}}</dt>
       <dd>
-        This media element is allowed to autoplay within the current execution
+        This element is allowed to autoplay within the current execution
         context.
       </dd>
 
       <dt>If the value is {{allowed-muted}}</dt>
       <dd>
-        This media element will only be allowed to autoplay if it's an
-        {{inaudible media element}}. If authors make this media element audible
-        right after the media element started playing, then the user-agent
-        **MUST** pause this media element immediately because it's no longer
-        inaudible.
+        This element will only be allowed to autoplay if it's inaudible.
+
+        <div class="note">
+          Note: Currently, this attribute will only be returned when a queried
+          constructor is the type of {{HTMLMediaElement}}. The inaudible media
+          means {{inaudible media element}}.
+
+          In addition, if authors make an inaudible media element audible
+          right after it starts playing, then it is **recommended** for a
+          user-agent to pause that media element immediately because it's no
+          longer inaudible.
+        </div>
       </dd>
 
       <dt>If the value is {{disallowed}}</dt>
       <dd>
-        This media element is not allowed to autoplay. If authors call its
-        {{HTMLMediaElement/play()}}, the returned promise from
-        {{HTMLMediaElement/play()}} will be rejected with {{NotAllowedError}}
-        exception.
+        This element is not allowed to autoplay.
+        <div class="note">
+          Note: For {{HTMLMediaElement}}, if authors call its
+          {{HTMLMediaElement/play()}}, the returned promise from
+          {{HTMLMediaElement/play()}} will be rejected with {{NotAllowedError}}
+          exception.
+
+          For {{AudioContext}}, that means its {{AudioContextState}} would keep
+          in {{AudioContextState/suspended}} state.
+        </div>
       </dd>
     </dl>
 
-    If the media element's {{HTMLMediaElement/autoplayPolicy}} is different from
-    the document's {{Document/autoplayPolicy}}, the media element's
-    {{HTMLMediaElement/autoplayPolicy}} overrides the document's
-    {{Document/autoplayPolicy}}.
+    If the result of querying by a constructor is different from the result
+    of querying by an element, authors should take the latter one as a correct
+    result. Example 2 shows a possible scenario.
 
 <h2 id="code-example">Examples</h2>
   <div class=example>
-    Example of using Document's {{Document/autoplayPolicy}}
+    An example for checking whether authors can autoplay a media element.
     <pre class="lang-javascript">
-      switch (document.autoplayPolicy) {
-        case "allowed":
-          loadUnmutedVideos();
-          break;
-        case "allowed-muted":
-          loadMutedVideos();
-          break;
-        default:
-          loadPosterImages();
-          break;
+
+      if (navigator.getAutoplayPolicy(HTMLMediaElement) === "allowed") {
+        // Create and play a new media element.
+      } else if (navigator.getAutoplayPolicy(HTMLMediaElement) === "allowed-muted") {
+        // Create a new media element, and play it in muted.
+      } else {
+        // Autoplay is disallowed, maybe show a poster instead.
       }
     </pre>
   </div>
 
   <div class=example>
-    Example of using HTMLMediaElement's {{HTMLMediaElement/autoplayPolicy}}
+    An example for checking whether authors can start an audio context.
+    [Web Audio](https://webaudio.github.io/web-audio-api/#allowed-to-start)
+    uses [=sticky activation=] to determine if {{AudioContext}} can be allowed
+    to start.
+    <pre class="lang-javascript">
+      if (navigator.getAutoplayPolicy(AudioContext) === "allowed") {
+        let ac = new AudioContext();
+        ac.onstatechange = function() {
+          if (ac.state === "running") {
+            // Start running audio app.
+          }
+        }
+      } else {
+        // Audio context is not allowed to start. Display a bit of UI to ask
+        // users to start the audio app. Audio starts via calling ac.resume()
+        // from a handler, and 'onstatechange' allows knowing when the audio
+        // stack is ready.
+      }
+    </pre>
+  </div>
+
+  <div class=example>
+    Example of querying by a specific media element.
     <pre class="lang-javascript">
       function handlePlaySucceeded() {
-        // Update the control UI to playing
+        // Update the control UI to playing.
       }
       function handlePlayFailed() {
         // Show a button to allow users to explicitly start the video and
-        // display a image element as poster to replace the video
+        // display an image element as poster to replace the video.
       }
 
       let video = document.getElementById("video");
-      switch (video.autoplayPolicy) {
+      switch (navigator.getAutoplayPolicy(video)) {
         case "allowed":
           video.src = "video.webm";
           video.play().then(handlePlaySucceeded, handlePlayFailed);
@@ -306,6 +327,27 @@ div.enum-description > table > thead > tr > th {
           // Autoplay is not allowed, no need to download the resource.
           handlePlayFailed();
           break;
+      }
+    </pre>
+  </div>
+
+  <div class=example>
+    Example of querying by a specific audio context.
+    [Web Audio](https://webaudio.github.io/web-audio-api/#allowed-to-start)
+    uses [=sticky activation=] to determine if {{AudioContext}} can be allowed
+    to start.
+    <pre class="lang-javascript">
+      let ac = new AudioContext();
+      if (navigator.getAutoplayPolicy(ac) === "allowed") {
+        ac.onstatechange = function() {
+          if (ac.state === "running") {
+            // Start running audio app.
+          }
+        }
+      } else {
+        // Display a bit of UI to ask users to start the audio app.
+        // Audio starts via calling ac.resume() from a handler, and
+        // 'onstatechange' allows knowing when the audio stack is ready.
       }
     </pre>
   </div>
@@ -326,7 +368,7 @@ div.enum-description > table > thead > tr > th {
 <h2 id="acknowledgements">Acknowledgments</h2>
   This specification is the collective work of the <a href="https://www.w3.org/media-wg/">W3C media Working Group</a>.
 
-  The editors would like to thank Alastor Wu, Becca Hughes, Chris Needham,
-  Chris Pearce, Dale Curtis, Eric Carlson, Gary Katsevman, Jer Noble, Mattias Buelens,
-  Mounir Lamouri, Paul Adenot and Tom Jenkinson for their contributions to this
-  specification.
+  The editors would like to thank Alastor Wu, Becca Hughes, Christoph Guttandin,
+  Chris Needham, Chris Pearce, Dale Curtis, Eric Carlson, François Daoust,
+  Frank Liberato, Gary Katsevman, Jer Noble, Mattias Buelens, Mounir Lamouri,
+  Paul Adenot and Tom Jenkinson for their contributions to this specification.

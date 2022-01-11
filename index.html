@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version 800b43329, updated Tue May 25 14:13:32 2021 -0700" name="generator">
   <link href="https://w3c.github.io/autoplay/" rel="canonical">
-  <meta content="f370977f94abc70876bb6a932c402515a35c7a85" name="document-revision">
+  <meta content="ae18382d2ccd441ac406a21cc6e769aeddfdeb2e" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -753,7 +753,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <dt>If the value is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed②">disallowed</a></code>
     <dd> <strong>None</strong> of media are allowed to autoplay. 
    </dl>
-   <p>If the constructor which authors pass is not a constructor of <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑤">HTMLMediaElement</a></code> or <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext①">AudioContext</a></code>, then these methods will throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
+   <p>If the constructor which authors pass is not a constructor of <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑤">HTMLMediaElement</a></code> (or its extension, such as <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement" id="ref-for-htmlvideoelement">HTMLVideoElement</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement" id="ref-for-htmlaudioelement">HTMLAudioElement</a></code>) or <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext①">AudioContext</a></code>, then these methods will throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
    <div class="note" role="note"> Note: Depending on the implementation, it’s still possible for some media
       that exist on the same document would be allowed to autoplay when the
       result of querying by a contructor is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-disallowed" id="ref-for-dom-autoplaypolicy-disallowed③">disallowed</a></code>. In this situation,
@@ -823,7 +823,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <p>If the result of querying by a constructor is different from the result
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.</p>
-   <p>If the element which authors pass is not <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑨">HTMLMediaElement</a></code> or <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext④">AudioContext</a></code>, then these methods will throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror①">TypeError</a></code>.</p>
+   <p>If the element which authors pass is not <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑨">HTMLMediaElement</a></code> (or its
+    extension, such as <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement" id="ref-for-htmlvideoelement①">HTMLVideoElement</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement" id="ref-for-htmlaudioelement①">HTMLAudioElement</a></code>) or <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#audiocontext" id="ref-for-audiocontext④">AudioContext</a></code>, then these methods will throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror①">TypeError</a></code>.</p>
    <h2 class="heading settled" data-level="3" id="code-example"><span class="secno">3. </span><span class="content">Examples</span><a class="self-link" href="#code-example"></a></h2>
    <div class="example" id="example-62671621">
     <a class="self-link" href="#example-62671621"></a> An example for checking whether authors can autoplay a media element. 
@@ -942,6 +943,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <li><a href="#dom-autoplaypolicy-inaudible-media">Inaudible media</a><span>, in §2.1</span>
    <li><a href="#dom-autoplaypolicy-inaudible-media-element">inaudible media element</a><span>, in §2.1</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-htmlaudioelement">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement">https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmlaudioelement">2.2.1. Query by a Constructor</a>
+    <li><a href="#ref-for-htmlaudioelement①">2.2.2. Query by an Element</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-htmlmediaelement">
    <a href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement">https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement</a><b>Referenced in:</b>
    <ul>
@@ -949,6 +957,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <li><a href="#ref-for-htmlmediaelement①">2.1. Autoplay Policy Enum</a> <a href="#ref-for-htmlmediaelement②">(2)</a>
     <li><a href="#ref-for-htmlmediaelement③">2.2.1. Query by a Constructor</a> <a href="#ref-for-htmlmediaelement④">(2)</a> <a href="#ref-for-htmlmediaelement⑤">(3)</a>
     <li><a href="#ref-for-htmlmediaelement⑥">2.2.2. Query by an Element</a> <a href="#ref-for-htmlmediaelement⑦">(2)</a> <a href="#ref-for-htmlmediaelement⑧">(3)</a> <a href="#ref-for-htmlmediaelement⑨">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-htmlvideoelement">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmlvideoelement">2.2.1. Query by a Constructor</a>
+    <li><a href="#ref-for-htmlvideoelement①">2.2.2. Query by an Element</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-navigator">
@@ -1060,7 +1075,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
+     <li><span class="dfn-paneled" id="term-for-htmlaudioelement">HTMLAudioElement</span>
      <li><span class="dfn-paneled" id="term-for-htmlmediaelement">HTMLMediaElement</span>
+     <li><span class="dfn-paneled" id="term-for-htmlvideoelement">HTMLVideoElement</span>
      <li><span class="dfn-paneled" id="term-for-navigator">Navigator</span>
      <li><span class="dfn-paneled" id="term-for-window">Window</span>
      <li><span class="dfn-paneled" id="term-for-audio">audio</span>

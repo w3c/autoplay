@@ -169,7 +169,8 @@ div.enum-description > table > thead > tr > th {
     </dl>
 
       If the constructor which authors pass is not a constructor of
-      {{HTMLMediaElement}} or {{AudioContext}}, then these methods will throw a
+      {{HTMLMediaElement}} (or its extension, such as {{HTMLVideoElement}} and
+      {{HTMLAudioElement}}) or {{AudioContext}}, then these methods will throw a
       {{TypeError}}.
 
     <div class="note">
@@ -268,7 +269,8 @@ div.enum-description > table > thead > tr > th {
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.
 
-    If the element which authors pass is not {{HTMLMediaElement}} or
+    If the element which authors pass is not {{HTMLMediaElement}} (or its
+    extension, such as {{HTMLVideoElement}} and {{HTMLAudioElement}}) or
     {{AudioContext}}, then these methods will throw a {{TypeError}}.
 
 <h2 id="code-example">Examples</h2>

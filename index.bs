@@ -4,10 +4,15 @@ Shortname: autoplay-detection
 Level: 1
 Status: w3c/ED
 Group: mediawg
+Repository: https://github.com/w3c/autoplay
 URL: https://w3c.github.io/autoplay/
 Editor: Alastor Wu, Mozilla https://www.mozilla.org, alwu@mozilla.com
 Abstract: This specification provides web developers the ability to detect if automatically starting the playback of a media file is allowed in different situations.
 Markup Shorthands: markdown on
+</pre>
+
+<pre class=link-defaults>
+spec:html; type:attribute; text:document
 </pre>
 
 <style>
@@ -133,9 +138,9 @@ div.enum-description > table > thead > tr > th {
 
         [Exposed=Window]
         partial interface Navigator {
-          AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor ctor);
+          AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor mediaCtor);
 
-          AutoplayPolicy getAutoplayPolicy(AudioContextConstructor ctor);
+          AutoplayPolicy getAutoplayPolicy(AudioContextConstructor audioCtor);
         };
       </pre>
 

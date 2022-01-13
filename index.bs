@@ -138,9 +138,9 @@ div.enum-description > table > thead > tr > th {
 
         [Exposed=Window]
         partial interface Navigator {
-          AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor mediaCtor);
+          AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor ctor);
 
-          AutoplayPolicy getAutoplayPolicy(AudioContextConstructor audioCtor);
+          AutoplayPolicy getAutoplayPolicy(AudioContextConstructor ctor);
         };
       </pre>
 

@@ -169,6 +169,13 @@ div.enum-description > table > thead > tr > th {
     </dl>
 
     <div class="note">
+      Note: If the constructor which authors pass is not a constructor of
+      {{HTMLMediaElement}} (or its extension, such as {{HTMLVideoElement}} and
+      {{HTMLAudioElement}}) or {{AudioContext}}, then these methods will throw a
+      {{TypeError}}.
+    </div>
+
+    <div class="note">
       Note: Depending on the implementation, it's still possible for some media
       that exist on the same document would be allowed to autoplay when the
       result of querying by a contructor is {{disallowed}}. In this situation,
@@ -263,6 +270,12 @@ div.enum-description > table > thead > tr > th {
     If the result of querying by a constructor is different from the result
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.
+
+    <div class="note">
+      Note: If the element which authors pass is not {{HTMLMediaElement}} (or
+      its extension, such as {{HTMLVideoElement}} and {{HTMLAudioElement}}) or
+      {{AudioContext}}, then these methods will throw a {{TypeError}}.
+    </div>
 
 <h2 id="code-example">Examples</h2>
   <div class=example>

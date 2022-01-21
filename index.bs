@@ -61,7 +61,7 @@ div.enum-description > table > thead > tr > th {
 <h2 id="autoplay-detection-api">The Autoplay Detection API</h2>
   Autoplay detection can be performed through the {{Navigator}} object. The
   result can either allow authors to know if media, which have the same type of
-  the queried constructor and exist in the {{document}} contained in the
+  the queried media type and exist in the {{document}} contained in the
   {{Window}} object asscociated with the queried {{Navigator}} object, are
   allowed to autoplay, or to know if a specific element is allowed to autoplay.
 
@@ -91,8 +91,10 @@ div.enum-description > table > thead > tr > th {
           <td>
             <dfn>Inaudible media</dfn> are allowed to autoplay.
             <div class="note">
-              Note: Currently, this attribute will only be returned when a queried
-              object or a constructor is a type of {{HTMLMediaElement}}.
+              Note: Currently, this attribute will only be returned when a
+              queried media type or element is a type of {{HTMLMediaElement}}
+              or its extensions, such as {{HTMLVideoElement}} or
+              {{HTMLAudioElement}}.
             </div>
             An <dfn export>inaudible media element</dfn> is an {{HTMLMediaElement}}
             that has any of the following conditions:
@@ -127,60 +129,94 @@ div.enum-description > table > thead > tr > th {
 
   <h3 id="autoplay-detection-methods">The Autoplay Detection Methods</h3>
     <pre class="idl">
-      callback HTMLMediaElementConstructor = HTMLMediaElement ();
-      callback AudioContextConstructor = AudioContext ();
+      enum AutoplayPolicyMediaType { "mediaElement", "audioContext" };
 
       [Exposed=Window]
       partial interface Navigator {
-        AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor mediaCtor);
-        AutoplayPolicy getAutoplayPolicy(AudioContextConstructor audioCtor);
+        AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type);
         AutoplayPolicy getAutoplayPolicy(HTMLMediaElement element);
         AutoplayPolicy getAutoplayPolicy(AudioContext context);
       };
     </pre>
 
-    <h4 id="query-by-a-constructor">Query by a Constructor</h4>
-      The {{getAutoplayPolicy(mediaCtor)}} and {{getAutoplayPolicy(audioCtor)}}
-      methods return the rough status of whether media, which have the same type
-      of the queried constructor and exist in the {{document}} contained in the
-      {{Window}} object associated with the queried {{Navigator}} object, are
-      allowed to autoplay or not. The media terms appearing in the next
-      following if-statement have the same definition as above description.
+    <div class="enum-description">
+      <table class="simple" dfn-for="AutoplayPolicyMediaType" dfn-type="enum-value">
+        <thead>
+          <tr>
+            <th scope="col" colspan="2">
+              Enumeration description
+        <tbody>
+          <tr>
+            <td>
+              <dfn>mediaElement</dfn>
+            <td>
+              It's used to query a status for {{HTMLMediaElement}} and its
+              extensions, such as {{HTMLVideoElement}} and {{HTMLAudioElement}}.
+          <tr>
+            <td>
+              <dfn>audioContext</dfn>
+            <td>
+              It's used to query a status for {{AudioContext}}.
+      </table>
+    </div>
+
+    <h4 id="query-by-a-media-type">Query by a Media Type</h4>
+      The {{getAutoplayPolicy(type)}} methods return the **rough** status of
+      whether media elements or audio context, which exist in the {{document}}
+      contained in the {{Window}} object associated with the queried
+      {{Navigator}} object, are allowed to autoplay or not.
+
+      When {{getAutoplayPolicy(type)}} method is called, the user agent MUST run
+      the following steps:
+      <ol>
+        <li>
+          If {{type}} is not {{AutoplayPolicyMediaType/mediaElement}} or
+          {{AutoplayPolicyMediaType/audioContext}}, throw a {{TypeError}}
+          exception.
+        </li>
+        <li>
+          If {{type}} is {{AutoplayPolicyMediaType/mediaElement}}, return a
+          result that represents the current status for {{HTMLMediaElement}}
+          and its extensions, such as {{HTMLVideoElement}} and
+          {{HTMLAudioElement}}, which exist in the {{document}} contained in the
+          {{Window}} object associated with the queried {{Navigator}} object.
+        </li>
+        <li>
+          If {{type}} is {{AutoplayPolicyMediaType/audioContext}}, return a
+          result that represents the current status for {{AudioContext}},
+          which exist in the {{document}} contained in the {{Window}} object
+          associated with the queried {{Navigator}} object.
+        </li>
+      </ol>
 
     <dl class="switch">
-      <dt>If the value is {{allowed}}</dt>
+      <dt>If the return value is {{allowed}}</dt>
       <dd>
-        All media are allowed to autoplay.
+        All media, corresponding with given type, are allowed to autoplay.
       </dd>
 
-      <dt>If the value is {{allowed-muted}}</dt>
+      <dt>If the return value is {{allowed-muted}}</dt>
       <dd>
-        All inaudible media are allowed to autoplay.
-        to autoplay.
+        All inaudible media, corresponding with given type, are allowed to
+        autoplay.
         <div class="note">
           Note: Currently, this attribute will only be returned when the queried
-          constructor is {{HTMLMediaElement}}. The inaudible media means
-          {{inaudible media element}}.
+          media type is {{AutoplayPolicyMediaType/mediaElement}}. The inaudible
+          media means {{inaudible media element}}.
         </div>
       </dd>
 
-      <dt>If the value is {{disallowed}}</dt>
+      <dt>If the return value is {{disallowed}}</dt>
       <dd>
-        **None** of media are allowed to autoplay.
+        **None** of media, corresponding with given type, are allowed to
+        autoplay.
       </dd>
     </dl>
 
     <div class="note">
-      Note: If the constructor which authors pass is not a constructor of
-      {{HTMLMediaElement}} (or its extension, such as {{HTMLVideoElement}} and
-      {{HTMLAudioElement}}) or {{AudioContext}}, then these methods will throw a
-      {{TypeError}}.
-    </div>
-
-    <div class="note">
       Note: Depending on the implementation, it's still possible for some media
       that exist on the same document would be allowed to autoplay when the
-      result of querying by a contructor is {{disallowed}}. In this situation,
+      result of querying by a media type is {{disallowed}}. In this situation,
       it is **recommended** that authors also query by a specific element in
       order to get an accurate result.
     </div>
@@ -190,11 +226,11 @@ div.enum-description > table > thead > tr > th {
       but allow autoplay on those media elements which have been clicked by
       users.
 
-      For example, at first, the result of querying by a contructor and
+      For example, at first, the result of querying by a media type and
       querying by a object would both be {{disallowed}}. After a user clicks on
       a media element, then querying by that media element would become
       {{allowed}} if a user-agent decides to bless that element because that
-      behavior seems intended by users, but querying by a contructor and querying
+      behavior seems intended by users, but querying by a media type and querying
       by other media elements, which haven't been clicked yet, would still
       return {{disallowed}}.
     </div>
@@ -225,19 +261,20 @@ div.enum-description > table > thead > tr > th {
     to autoplay or not.
 
     <dl class="switch">
-      <dt>If the value is {{allowed}}</dt>
+      <dt>If the return value is {{allowed}}</dt>
       <dd>
         This element is allowed to autoplay within the current execution
         context.
       </dd>
 
-      <dt>If the value is {{allowed-muted}}</dt>
+      <dt>If the return value is {{allowed-muted}}</dt>
       <dd>
         This element will only be allowed to autoplay if it's inaudible.
 
         <div class="note">
           Note: Currently, this attribute will only be returned when a queried
-          constructor is the type of {{HTMLMediaElement}}. The inaudible media
+          element is {{HTMLMediaElement}} or its extensions, such as
+          {{HTMLVideoElement}} or {{HTMLAudioElement}}. The inaudible media
           means {{inaudible media element}}.
 
           In addition, if authors make an inaudible media element audible
@@ -247,7 +284,7 @@ div.enum-description > table > thead > tr > th {
         </div>
       </dd>
 
-      <dt>If the value is {{disallowed}}</dt>
+      <dt>If the return value is {{disallowed}}</dt>
       <dd>
         This element is not allowed to autoplay.
         <div class="note">
@@ -262,7 +299,7 @@ div.enum-description > table > thead > tr > th {
       </dd>
     </dl>
 
-    If the result of querying by a constructor is different from the result
+    If the result of querying by a media type is different from the result
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.
 
@@ -277,9 +314,9 @@ div.enum-description > table > thead > tr > th {
     An example for checking whether authors can autoplay a media element.
     <pre class="lang-javascript">
 
-      if (navigator.getAutoplayPolicy(HTMLMediaElement) === "allowed") {
+      if (navigator.getAutoplayPolicy("mediaElement") === "allowed") {
         // Create and play a new media element.
-      } else if (navigator.getAutoplayPolicy(HTMLMediaElement) === "allowed-muted") {
+      } else if (navigator.getAutoplayPolicy("mediaElement") === "allowed-muted") {
         // Create a new media element, and play it in muted.
       } else {
         // Autoplay is disallowed, maybe show a poster instead.
@@ -293,7 +330,7 @@ div.enum-description > table > thead > tr > th {
     uses [=sticky activation=] to determine if {{AudioContext}} can be allowed
     to start.
     <pre class="lang-javascript">
-      if (navigator.getAutoplayPolicy(AudioContext) === "allowed") {
+      if (navigator.getAutoplayPolicy("audioContext") === "allowed") {
         let ac = new AudioContext();
         ac.onstatechange = function() {
           if (ac.state === "running") {

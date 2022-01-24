@@ -131,22 +131,24 @@ div.enum-description > table > thead > tr > th {
     </div>
 
   <h3 id="autoplay-detection-methods">The Autoplay Detection Methods</h3>
+    <pre class="idl">
+      callback HTMLMediaElementConstructor = HTMLMediaElement ();
+      callback AudioContextConstructor = AudioContext ();
+
+      [Exposed=Window]
+      partial interface Navigator {
+        AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor mediaCtor);
+        AutoplayPolicy getAutoplayPolicy(AudioContextConstructor audioCtor);
+        AutoplayPolicy getAutoplayPolicy(HTMLMediaElement element);
+        AutoplayPolicy getAutoplayPolicy(AudioContext context);
+      };
+    </pre>
+
     <h4 id="query-by-a-constructor">Query by a Constructor</h4>
-      <pre class="idl">
-        callback HTMLMediaElementConstructor = HTMLMediaElement ();
-        callback AudioContextConstructor = AudioContext ();
-
-        [Exposed=Window]
-        partial interface Navigator {
-          AutoplayPolicy getAutoplayPolicy(HTMLMediaElementConstructor ctor);
-
-          AutoplayPolicy getAutoplayPolicy(AudioContextConstructor ctor);
-        };
-      </pre>
-
-      This represents a rough status of whether media, which have the same type
+      The {{getAutoplayPolicy(mediaCtor)}} and {{getAutoplayPolicy(audioCtor)}}
+      methods return the rough status of whether media, which have the same type
       of the queried constructor and exist in the {{document}} contained in the
-      {{Window}} object asscociated with the queried {{Navigator}} object, are
+      {{Window}} object associated with the queried {{Navigator}} object, are
       allowed to autoplay or not. The media terms appearing in the next
       following if-statement have the same definition as above description.
 
@@ -172,6 +174,13 @@ div.enum-description > table > thead > tr > th {
         **None** of media are allowed to autoplay.
       </dd>
     </dl>
+
+    <div class="note">
+      Note: If the constructor which authors pass is not a constructor of
+      {{HTMLMediaElement}} (or its extension, such as {{HTMLVideoElement}} and
+      {{HTMLAudioElement}}) or {{AudioContext}}, then these methods will throw a
+      {{TypeError}}.
+    </div>
 
     <div class="note">
       Note: Depending on the implementation, it's still possible for some media
@@ -216,16 +225,9 @@ div.enum-description > table > thead > tr > th {
     </div>
 
   <h4 id="query-by-a-element">Query by an Element</h3>
-    <pre class="idl">
-      [Exposed=Window]
-      partial interface Navigator {
-        AutoplayPolicy getAutoplayPolicy(HTMLMediaElement element);
-
-        AutoplayPolicy getAutoplayPolicy(AudioContext context);
-      };
-    </pre>
-    This represents the current status of whether the queried element is
-    allowed to autoplay or not.
+    The {{getAutoplayPolicy(element)}} and {{getAutoplayPolicy(context)}}
+    methods return the current status of whether the queried element is allowed
+    to autoplay or not.
 
     <dl class="switch">
       <dt>If the value is {{allowed}}</dt>
@@ -268,6 +270,12 @@ div.enum-description > table > thead > tr > th {
     If the result of querying by a constructor is different from the result
     of querying by an element, authors should take the latter one as a correct
     result. Example 2 shows a possible scenario.
+
+    <div class="note">
+      Note: If the element which authors pass is not {{HTMLMediaElement}} (or
+      its extension, such as {{HTMLVideoElement}} and {{HTMLAudioElement}}) or
+      {{AudioContext}}, then these methods will throw a {{TypeError}}.
+    </div>
 
 <h2 id="code-example">Examples</h2>
   <div class=example>

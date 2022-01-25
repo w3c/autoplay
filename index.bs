@@ -48,14 +48,14 @@ div.enum-description > table > thead > tr > th {
 </style>
 
 <h2 id="introduction">Introduction</h2>
-  Most user-agents have their own mechanisms to block autoplaying media, and those
+  Most user agents have their own mechanisms to block autoplaying media, and those
   mechanisms are implementation-specific. Web developers need to have a way to
   detect if autoplaying media is allowed or not in order to make actions, such
   as selecting alternate content or improving the user experience while media
-  is not allowed to autoplay. For instance, if a user-agent only blocks audible
+  is not allowed to autoplay. For instance, if a user agent only blocks audible
   autoplay, then web developers can replace audible media with inaudible media
   to keep media playing, instead of showing a blocked media which looks like a
-  still image to users. If the user-agent does not allow any autoplay media,
+  still image to users. If the user agent does not allow any autoplay media,
   then web developers could stop loading media resources and related tasks to
   save the bandwidth and CPU usage for users.
 
@@ -96,7 +96,7 @@ div.enum-description > table > thead > tr > th {
           <td>
             <dfn>Inaudible media</dfn> are allowed to autoplay.
             <div class="note">
-              Note: Currently, this attribute will only be returned when a
+              Note: Currently, this attribute will only be returned when the
               given media type or element is a type of {{HTMLMediaElement}}
               or its extensions, such as {{HTMLVideoElement}} or
               {{HTMLAudioElement}}.
@@ -118,13 +118,13 @@ div.enum-description > table > thead > tr > th {
 
     <div class="note">
       Note: The autoplay policy represents the current status of whether a
-      user-agent allows media to autoplay, which can **vary** in the future.
+      user agent allows media to autoplay, which can **vary** in the future.
       Therefore, it is **recommended** that authors check the result every time
       if they want to have an up-to-date result.
     </div>
 
     <div class=example>
-      If a user-agent uses the user activation, described in
+      If a user agent uses the user activation, described in
       [[HTML#user-activation-data-model]], to determine if the autoplay media
       are allowed or not, and the default policy is to block all autoplay
       ({{AutoplayPolicy/disallowed}}). Then the policy could change to
@@ -140,7 +140,7 @@ div.enum-description > table > thead > tr > th {
       partial interface Navigator {
         AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type);
         AutoplayPolicy getAutoplayPolicy(HTMLMediaElement element);
-        AutoplayPolicy getAutoplayPolicy(audiocontext context);
+        AutoplayPolicy getAutoplayPolicy(AudioContext context);
       };
     </pre>
 
@@ -182,14 +182,14 @@ div.enum-description > table > thead > tr > th {
       </div>
 
       <div class=example>
-        Some user-agents may not allow any media element to autoplay by default,
+        Some user agents may not allow any media element to autoplay by default,
         but allow autoplay on those media elements which have been clicked by
         users.
 
         For example, at first, the result of querying by a media type and
-        querying by a object would both be {{disallowed}}. After a user clicks
+        querying by an object would both be {{disallowed}}. After a user clicks
         on a media element, then querying by that media element would become
-        {{allowed}} if a user-agent decides to bless that element because that
+        {{allowed}} if a user agent decides to bless that element because that
         behavior seems intended by users, but querying by a media type and
         querying by other media elements, which haven't been clicked yet, would
         still return {{disallowed}}.
@@ -248,7 +248,7 @@ div.enum-description > table > thead > tr > th {
     <div class=example>
       Assume that the top level document A in `foo.com` returns {{allowed}} and
       it has an embedded iframe, which has another document B from `bar.com`. A
-      user-agent could either make child document B return same result that is
+      user agent could either make child document B return same result that is
       inherited from the top level document A. Or make the document B return a
       different result, eg. {{disallowed}}.
 
@@ -274,14 +274,14 @@ div.enum-description > table > thead > tr > th {
         This element will only be allowed to autoplay if it's inaudible.
 
         <div class="note">
-          Note: Currently, this attribute will only be returned when a given
+          Note: Currently, this attribute will only be returned when the given
           element is {{HTMLMediaElement}} or its extensions, such as
           {{HTMLVideoElement}} or {{HTMLAudioElement}}. The inaudible media
           means {{inaudible media element}}.
 
           In addition, if authors make an inaudible media element audible
           right after it starts playing, then it is **recommended** for a
-          user-agent to pause that media element immediately because it's no
+          user agent to pause that media element immediately because it's no
           longer inaudible.
         </div>
       </dd>
@@ -302,7 +302,7 @@ div.enum-description > table > thead > tr > th {
     </dl>
 
     If the result of querying by a media type is different from the result
-    of querying by an element, authors should take the latter one as a correct
+    of querying by an element, authors should take the latter one as the correct
     result. Example 2 shows a possible scenario.
 
     <div class="note">
@@ -409,7 +409,7 @@ div.enum-description > table > thead > tr > th {
   will persist across browsing sessions. It does not allow an origin to send any
   data to the underlying platform. It does not introduce or enable new script
   execution and loading mechanism. It does not allow an origin to draw over a
-  user-agent's native UI. It does not allow an origin to detect if users are in
+  user agent's native UI. It does not allow an origin to detect if users are in
   the private or non-private browsing mode.
 
 <h2 id="acknowledgements">Acknowledgments</h2>

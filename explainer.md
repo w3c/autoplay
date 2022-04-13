@@ -1,12 +1,15 @@
 # Autoplay Detection API
 
 ## Problem
+
 If a website plays a video it cannot detect whether it will be allowed to autoplay or whether that autoplay will be blocked until it calls play on the media element.
 
 ## Goal
-A site should be able to determine whether a video will autoplay or not. Knowing this in advance is important for a site as they may want to adjust their user experience or select alternate content to use instead.
+
+A site should be able to determine whether a video will autoplay or not. Knowing this in advance is important for a site as it may want to adjust the user experience or select alternate content to use instead.
 
 ## Proposed API Design
+
 The document has an autoplay policy which can change. There will be an API on the document to get the autoplay policy and another on the media element which will return a boolean as to whether the media will be able to autoplay.
 
 There are three types of autoplay policy:
@@ -24,18 +27,17 @@ enum AutoplayPolicy {
   "disallowed"
 };
 
-partial interface Document {
-  Promise<AutoplayPolicy> getAutoplayPolicy();
+enum AutoplayPolicyMediaType {
+  "mediaelement",
+  "audiocontext"
 };
 
-partial interface HTMLMediaElement {
-  Promise<boolean> canAutoplay(); 
+partial interface Navigator {
+  AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type);
+  AutoplayPolicy getAutoplayPolicy(HTMLMediaElement element);
+  AutoplayPolicy getAutoplayPolicy(AudioContext context);
 };
 ```
-
-The API should be async because determining whether a site can autoplay can require cross-process communications to gather data such as website settings or user preferences. In this design the browser does not need to calculate the autoplay policy until getAutoplayPolicy is called. Being async also does not limit browser implementations of what determines autoplay policy.
-
-**There is strong disagreement over whether this API should be async or sync. For more details about the pros/cons please see this issue: https://github.com/WICG/autoplay/issues/7**
 
 ## Sample Code
 
@@ -44,9 +46,9 @@ The API should be async because determining whether a site can autoplay can requ
 In this situation a site would like to change the source based on whether it will autoplay. In this example the site will play `video.webm` if it can autoplay unmuted. If it cannot then it will use `video-alt.webm` instead.
 
 ```javascript
-let policy = await document.getAutoplayPolicy();
+const policy = navigator.getAutoplayPolicy("mediaelement");
 
-if (policy == "allowed") {
+if (policy === "allowed") {
   loadUnmutedVideo();
 } else {
   loadMutedVideo();
@@ -58,59 +60,29 @@ if (policy == "allowed") {
 In this situation a site would like to change its experience based on whether it will autoplay. In this example if it cannot autoplay unmuted then it will mute the video element.
 
 ```javascript
-let policy = await document.getAutoplayPolicy();
+const video = document.getElementById("video");
+const policy = navigator.getAutoplayPolicy("mediaelement");
 
 video.src = "video.webm";
-video.muted = !await video.canAutoplay();
-video.play();
-```
 
-## Open questions
-
-### Sync vs Async
-
-There is a strong disagreement about whether this API should be synchronous instead (the sync design is supported by both Apple and Mozilla). However, it would require all browsers to always be able to answer whether a website can autoplay at load time; regardless of their autoplay policies.
-
-The synchronous API would be designed like this:
-
-```javascript
-partial interface Document {
-  readonly attribute AutoplayPolicy autoplayPolicy;
-  attribute EventHandler onautoplaypolicychange;
-};
-
-partial interface HTMLMediaElement {
-  readonly boolean canAutoplay; 
-};
-```
-
-The first example from above using this design would be as follows:
-
-```javascript
-if (document.autoplayPolicy == "allowed") {
-  loadUnmutedVideo();
-} else {
-  loadMutedVideo();
+if (policy === "allow-muted") {
+  video.muted = true;
 }
-```
 
-The second example from above using this design would be as follows:
-
-```javascript
-video.src = "video.webm";
-video.muted = !video.canAutoplay;
 video.play();
 ```
 
-### Event Listener Issue
+## Alternatives Considered
+
+### Event Listener
 
 We considered having an event listener to allow sites to listen to changes in autoplay policy. However, this may cause issues where there are multiple event listeners on a page that all start playing when the autoplay policy changes.
 
 ### Autoplay Permission
 
-We considered having autoplay as a permission. However, there are a few differences between the autoplay and permissions:
+We considered having autoplay as a permission. However, there are a few differences between the autoplay policy and permissions:
 
- * Autoplay is something that is applied to the site from the browser; rather than something that should be requested
- * Autoplay has multiple states (e.g. allowed, allowed-muted); rather than a yes or no
- * Autoplay is not implemented by the user agents as a permission
+ * Autoplay policy is something that is applied to the site from the browser; rather than something that should be requested
+ * Autoplay policy has multiple states (e.g. allowed, allowed-muted); rather than a yes or no
+ * Autoplay policy is not implemented by user agents as a permission
  * Permissions are async

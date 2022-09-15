@@ -6,9 +6,9 @@
   <meta content="w3c/ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
+  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/autoplay-detection/" rel="canonical">
-  <meta content="2171e17da3b96ed4332f8d14938945925a34ee5b" name="document-revision">
+  <meta content="04cbd85a29a3d1144142a9f033de0e63de16fa0c" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -610,7 +610,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Autoplay Policy Detection</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-04-07">7 April 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-15">15 September 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -699,7 +699,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   still image to users. If the user agent does not allow any autoplay media,
   then web developers could stop loading media resources and related tasks to
   save the bandwidth and CPU usage for users. 
-   <p>Currently, this specification only handles <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement">HTMLMediaElement</a></code> (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#video" id="ref-for-video">video</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#audio" id="ref-for-audio">audio</a></code>) and <a data-biblio-display="inline" data-link-type="biblio" href="https://www.w3.org/TR/webaudio/"><cite>Web Audio API</cite></a>. This specification does not handle <a data-biblio-display="inline" data-link-type="biblio" href="https://wicg.github.io/speech-api/"><cite>Web Speech API</cite></a> and animated <code><a data-link-type="element" href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image" id="ref-for-elementdef-image">image</a></code> (GIF animation).</p>
+   <p>Currently, this specification only handles <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement">HTMLMediaElement</a></code> (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#video" id="ref-for-video">video</a></code> and <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/media.html#audio" id="ref-for-audio">audio</a></code>) and <a data-biblio-display="inline" data-link-type="biblio" href="https://webaudio.github.io/web-audio-api/"><cite>Web Audio API</cite></a>. This specification does not handle <a data-biblio-display="inline" data-link-type="biblio" href="https://wicg.github.io/speech-api/"><cite>Web Speech API</cite></a> and animated <code><a data-link-type="element" href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image" id="ref-for-elementdef-image">image</a></code> (GIF animation).</p>
    <h2 class="heading settled" data-level="2" id="autoplay-detection-api"><span class="secno">2. </span><span class="content">The Autoplay Detection API</span><a class="self-link" href="#autoplay-detection-api"></a></h2>
     Autoplay detection can be performed through the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator">Navigator</a></code> object. The
   result can either allow authors to know if media, which have the same type of
@@ -716,7 +716,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <table class="simple">
      <thead>
       <tr>
-       <th colspan="2" scope="col"> Enumeration description 
+       <th scope="col">Enum Value
+       <th scope="col">Description
      <tbody>
       <tr>
        <td> "<dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicy" data-dfn-type="enum-value" data-export data-lt="&quot;allowed&quot;|allowed" id="dom-autoplaypolicy-allowed"><code>allowed</code></dfn>" 
@@ -760,7 +761,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <table class="simple">
      <thead>
       <tr>
-       <th colspan="2" scope="col"> Enumeration description 
+       <th scope="col">Enum Value
+       <th scope="col">Description
      <tbody>
       <tr>
        <td> <dfn class="dfn-paneled idl-code" data-dfn-for="AutoplayPolicyMediaType" data-dfn-type="enum-value" data-export data-lt="&quot;mediaelement&quot;|mediaelement" id="dom-autoplaypolicymediatype-mediaelement"><code>mediaelement</code></dfn> 
@@ -940,7 +942,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </pre>
    </div>
    <h2 class="heading settled" data-level="4" id="security-and-privacy"><span class="secno">4. </span><span class="content">Security and Privacy Considerations</span><a class="self-link" href="#security-and-privacy"></a></h2>
-    Per the <a href="https://www.w3.org/TR/security-privacy-questionnaire/#questions">Self-Review Questionnaire: Security and Privacy § questions</a>. 
+    Per the <a href="https://w3ctag.github.io/security-questionnaire/#questions">Self-Review Questionnaire: Security and Privacy § questions</a>. 
    <p>The API introduced in this specification has very low impact with regards to
   security and privacy. It does not expose any sensitive information that can be
   used to to identify users. It does not expose any ability to control sensors
@@ -982,7 +984,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     and are set apart from the normative text
     with <code>class="note"</code>,
     like this: </p>
-   <p class="note" role="note">Note, this is an informative note. </p>
+   <p class="note" role="note">Note, this is an informative note.</p>
    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
    <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
@@ -1020,92 +1022,6 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <li><a href="#dom-autoplaypolicymediatype-mediaelement">"mediaelement"</a><span>, in § 2.2</span>
    <li><a href="#dom-autoplaypolicymediatype-mediaelement">mediaelement</a><span>, in § 2.2</span>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-htmlaudioelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement">https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlaudioelement">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-htmlaudioelement①">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-htmlaudioelement②">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-htmlaudioelement③">2.2.2. Query by an Element</a> <a href="#ref-for-htmlaudioelement④">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-htmlmediaelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement">https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlmediaelement">1. Introduction</a>
-    <li><a href="#ref-for-htmlmediaelement①">2.1. Autoplay Policy Enum</a> <a href="#ref-for-htmlmediaelement②">(2)</a>
-    <li><a href="#ref-for-htmlmediaelement③">2.2. The Autoplay Detection Methods</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
-    <li><a href="#ref-for-htmlmediaelement⑤">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-htmlmediaelement⑥">2.2.2. Query by an Element</a> <a href="#ref-for-htmlmediaelement⑦">(2)</a> <a href="#ref-for-htmlmediaelement⑧">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-htmlvideoelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlvideoelement">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-htmlvideoelement①">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-htmlvideoelement②">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-htmlvideoelement③">2.2.2. Query by an Element</a> <a href="#ref-for-htmlvideoelement④">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-navigator">
-   <a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">https://html.spec.whatwg.org/multipage/system-state.html#navigator</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-navigator">2. The Autoplay Detection API</a> <a href="#ref-for-navigator①">(2)</a>
-    <li><a href="#ref-for-navigator②">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-navigator③">2.2.1. Query by a Media Type</a> <a href="#ref-for-navigator④">(2)</a> <a href="#ref-for-navigator⑤">(3)</a> <a href="#ref-for-navigator⑥">(4)</a> <a href="#ref-for-navigator⑦">(5)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-window">
-   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-window">2. The Autoplay Detection API</a>
-    <li><a href="#ref-for-window①">2.2.1. Query by a Media Type</a> <a href="#ref-for-window②">(2)</a> <a href="#ref-for-window③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-audio">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#audio">https://html.spec.whatwg.org/multipage/media.html#audio</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-audio">1. Introduction</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-document-2">
-   <a href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2">https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-document-2">2. The Autoplay Detection API</a>
-    <li><a href="#ref-for-dom-document-2①">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-document-2②">(2)</a> <a href="#ref-for-dom-document-2③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-muted">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted">https://html.spec.whatwg.org/multipage/media.html#dom-media-muted</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-muted">2.1. Autoplay Policy Enum</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-play">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play">https://html.spec.whatwg.org/multipage/media.html#dom-media-play</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-play">2.2.2. Query by an Element</a> <a href="#ref-for-dom-media-play①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-sticky-activation">
-   <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-sticky-activation">3. Examples</a> <a href="#ref-for-sticky-activation①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-video">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#video">https://html.spec.whatwg.org/multipage/media.html#video</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-video">1. Introduction</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-volume">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume">https://html.spec.whatwg.org/multipage/media.html#dom-media-volume</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-volume">2.1. Autoplay Policy Enum</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-elementdef-image">
    <a href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image">https://svgwg.org/svg2-draft/embedded.html#elementdef-image</a><b>Referenced in:</b>
    <ul>
@@ -1154,28 +1070,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
-    <a data-link-type="biblio">[HTML]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="term-for-htmlaudioelement">HTMLAudioElement</span>
-     <li><span class="dfn-paneled" id="term-for-htmlmediaelement">HTMLMediaElement</span>
-     <li><span class="dfn-paneled" id="term-for-htmlvideoelement">HTMLVideoElement</span>
-     <li><span class="dfn-paneled" id="term-for-navigator">Navigator</span>
-     <li><span class="dfn-paneled" id="term-for-window">Window</span>
-     <li><span class="dfn-paneled" id="term-for-audio">audio</span>
-     <li><span class="dfn-paneled" id="term-for-dom-document-2">document</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-muted">muted</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-play">play()</span>
-     <li><span class="dfn-paneled" id="term-for-sticky-activation">sticky activation</span>
-     <li><span class="dfn-paneled" id="term-for-video">video</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-volume">volume</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[SVG2]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-elementdef-image">image</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[webaudio]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBAUDIO]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-AudioContext">AudioContext</span>
      <li><span class="dfn-paneled" id="term-for-enumdef-audiocontextstate">AudioContextState</span>
@@ -1196,10 +1096,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-security-privacy-questionnaire">[SECURITY-PRIVACY-QUESTIONNAIRE]
+   <dd>Theresa O'Connor; Peter Snyder. <a href="https://w3ctag.github.io/security-questionnaire/"><cite>Self-Review Questionnaire: Security and Privacy</cite></a>. URL: <a href="https://w3ctag.github.io/security-questionnaire/">https://w3ctag.github.io/security-questionnaire/</a>
    <dt id="biblio-svg2">[SVG2]
-   <dd>Amelia Bellamy-Royds; et al. <a href="https://www.w3.org/TR/SVG2/"><cite>Scalable Vector Graphics (SVG) 2</cite></a>. 4 October 2018. CR. URL: <a href="https://www.w3.org/TR/SVG2/">https://www.w3.org/TR/SVG2/</a>
+   <dd>Amelia Bellamy-Royds; et al. <a href="https://svgwg.org/svg2-draft/"><cite>Scalable Vector Graphics (SVG) 2</cite></a>. URL: <a href="https://svgwg.org/svg2-draft/">https://svgwg.org/svg2-draft/</a>
    <dt id="biblio-webaudio">[WEBAUDIO]
-   <dd>Paul Adenot; Hongchan Choi. <a href="https://www.w3.org/TR/webaudio/"><cite>Web Audio API</cite></a>. 17 June 2021. REC. URL: <a href="https://www.w3.org/TR/webaudio/">https://www.w3.org/TR/webaudio/</a>
+   <dd>Paul Adenot; Hongchan Choi. <a href="https://webaudio.github.io/web-audio-api/"><cite>Web Audio API</cite></a>. URL: <a href="https://webaudio.github.io/web-audio-api/">https://webaudio.github.io/web-audio-api/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>

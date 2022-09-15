@@ -83,10 +83,10 @@ div.enum-description > table > thead > tr > th {
     <table class="simple" dfn-for="AutoplayPolicy" dfn-type="enum-value">
       <thead>
         <tr>
-          <tr>
-            <th scope="col">Enum Value</th>
-            <th scope="col">Description</th>
-          </tr>
+          <th scope="col">Enum Value</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
           <td>
@@ -151,10 +151,10 @@ div.enum-description > table > thead > tr > th {
       <table class="simple" dfn-for="AutoplayPolicyMediaType" dfn-type="enum-value">
         <thead>
           <tr>
-          <tr>
             <th scope="col">Enum Value</th>
             <th scope="col">Description</th>
           </tr>
+        </thead>
         <tbody>
           <tr>
             <td>

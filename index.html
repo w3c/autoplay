@@ -6,9 +6,9 @@
   <meta content="w3c/ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
+  <meta content="Bikeshed version 02b73e8f2, updated Fri Jan 27 11:45:49 2023 -0800" name="generator">
   <link href="https://www.w3.org/TR/autoplay-detection/" rel="canonical">
-  <meta content="4b6d1265aaa39c9134f669df73bd5b41a3ff71fa" name="document-revision">
+  <meta content="551110970c81b34908371d90d404de9ba021851b" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -328,6 +328,14 @@ a.self-link:hover {
 .heading > a.self-link {
     font-size: 83%;
 }
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
 }
@@ -610,7 +618,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Autoplay Policy Detection</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-15">15 September 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-01-27">27 January 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -627,7 +635,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -703,7 +711,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <h2 class="heading settled" data-level="2" id="autoplay-detection-api"><span class="secno">2. </span><span class="content">The Autoplay Detection API</span><a class="self-link" href="#autoplay-detection-api"></a></h2>
     Autoplay detection can be performed through the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator">Navigator</a></code> object. The
   result can either allow authors to know if media, which have the same type of
-  the given media type and exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2" id="ref-for-dom-document-2">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code> object asscociated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code> object, are
+  the given media type and exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2" id="ref-for-dom-document-2">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window">Window</a></code> object associated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code> object, are
   allowed to autoplay, or to know if a specific element is allowed to autoplay. 
    <h3 class="heading settled" data-level="2.1" id="autoplay-policy"><span class="secno">2.1. </span><span class="content">Autoplay Policy Enum</span><a class="self-link" href="#autoplay-policy"></a></h3>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-autoplaypolicy"><code><c- g>AutoplayPolicy</c-></code></dfn> {
@@ -775,7 +783,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    </div>
    <h4 class="heading settled" data-level="2.2.1" id="query-by-a-media-type"><span class="secno">2.2.1. </span><span class="content">Query by a Media Type</span><a class="self-link" href="#query-by-a-media-type"></a></h4>
     The <code class="idl"><a data-link-type="idl" href="#dom-navigator-getautoplaypolicy" id="ref-for-dom-navigator-getautoplaypolicy">getAutoplayPolicy(type)</a></code> methods return the <strong>rough</strong> status of
-      whether media elements or audio context, which exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2" id="ref-for-dom-document-2①">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①">Window</a></code> object associated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator③">Navigator</a></code> object, are allowed to autoplay or not. The rough status
+      whether media elements or audio context, which exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2" id="ref-for-dom-document-2①">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code> object associated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator③">Navigator</a></code> object, are allowed to autoplay or not. The rough status
       here means that the returned result isn’t always correct for every
       elements which have the same type of the given media type. 
    <div class="note" role="note"> Note: Depending on the implementation, it’s still possible for some
@@ -798,10 +806,10 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       the following steps:</p>
    <ol>
     <li> If <code class="idl"><a data-link-type="idl" href="#dom-navigator-getautoplaypolicy-type-type" id="ref-for-dom-navigator-getautoplaypolicy-type-type">type</a></code> is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicymediatype-mediaelement" id="ref-for-dom-autoplaypolicymediatype-mediaelement①">mediaelement</a></code>, return a
-          result that represents the current status for <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑤">HTMLMediaElement</a></code> and its extensions, such as <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement" id="ref-for-htmlvideoelement②">HTMLVideoElement</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement" id="ref-for-htmlaudioelement②">HTMLAudioElement</a></code>, which exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2" id="ref-for-dom-document-2②">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window②">Window</a></code> object associated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator④">Navigator</a></code> object. 
+          result that represents the current status for <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement" id="ref-for-htmlmediaelement⑤">HTMLMediaElement</a></code> and its extensions, such as <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement" id="ref-for-htmlvideoelement②">HTMLVideoElement</a></code> and <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement" id="ref-for-htmlaudioelement②">HTMLAudioElement</a></code>, which exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2" id="ref-for-dom-document-2②">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window②">Window</a></code> object associated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator④">Navigator</a></code> object. 
     <li> If <code class="idl"><a data-link-type="idl" href="#dom-navigator-getautoplaypolicy-type-type" id="ref-for-dom-navigator-getautoplaypolicy-type-type①">type</a></code> is <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicymediatype-audiocontext" id="ref-for-dom-autoplaypolicymediatype-audiocontext①">audiocontext</a></code>, return a
           result that represents the current status for <code class="idl"><a data-link-type="idl" href="https://webaudio.github.io/web-audio-api/#AudioContext" id="ref-for-AudioContext②">AudioContext</a></code>,
-          which exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#dom-document-2" id="ref-for-dom-document-2③">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window③">Window</a></code> object
+          which exist in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2" id="ref-for-dom-document-2③">document</a></code> contained in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window③">Window</a></code> object
           associated with the queried <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator⑤">Navigator</a></code> object. 
    </ol>
    <dl class="switch">
@@ -820,8 +828,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    </dl>
    <div class="note" role="note"> Note: Depending on the implementation, if a document has child
       documents, then the result queried from the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator⑥">Navigator</a></code> object
-      asscociated with the parent document could be different from the result
-      queried from the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator⑦">Navigator</a></code> object asscociated with the child
+      associated with the parent document could be different from the result
+      queried from the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator⑦">Navigator</a></code> object associated with the child
       documents. </div>
    <div class="example" id="example-61ce713d">
     <a class="self-link" href="#example-61ce713d"></a> Assume that the top level document A in <code>foo.com</code> returns <code class="idl"><a data-link-type="idl" href="#dom-autoplaypolicy-allowed" id="ref-for-dom-autoplaypolicy-allowed④">allowed</a></code> and
@@ -971,7 +979,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     However, for readability,
     these words do not appear in all uppercase letters in this specification. </p>
    <p>All of the text of this specification is normative
-    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
    <p>Examples in this specification are introduced with the words “for example”
     or are set apart from the normative text
     with <code>class="example"</code>,
@@ -1022,6 +1030,92 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <li><a href="#dom-autoplaypolicymediatype-mediaelement">"mediaelement"</a><span>, in § 2.2</span>
    <li><a href="#dom-autoplaypolicymediatype-mediaelement">mediaelement</a><span>, in § 2.2</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-htmlaudioelement">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement">https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmlaudioelement">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-htmlaudioelement①">2.2. The Autoplay Detection Methods</a>
+    <li><a href="#ref-for-htmlaudioelement②">2.2.1. Query by a Media Type</a>
+    <li><a href="#ref-for-htmlaudioelement③">2.2.2. Query by an Element</a> <a href="#ref-for-htmlaudioelement④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-htmlmediaelement">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement">https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmlmediaelement">1. Introduction</a>
+    <li><a href="#ref-for-htmlmediaelement①">2.1. Autoplay Policy Enum</a> <a href="#ref-for-htmlmediaelement②">(2)</a>
+    <li><a href="#ref-for-htmlmediaelement③">2.2. The Autoplay Detection Methods</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
+    <li><a href="#ref-for-htmlmediaelement⑤">2.2.1. Query by a Media Type</a>
+    <li><a href="#ref-for-htmlmediaelement⑥">2.2.2. Query by an Element</a> <a href="#ref-for-htmlmediaelement⑦">(2)</a> <a href="#ref-for-htmlmediaelement⑧">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-htmlvideoelement">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmlvideoelement">2.1. Autoplay Policy Enum</a>
+    <li><a href="#ref-for-htmlvideoelement①">2.2. The Autoplay Detection Methods</a>
+    <li><a href="#ref-for-htmlvideoelement②">2.2.1. Query by a Media Type</a>
+    <li><a href="#ref-for-htmlvideoelement③">2.2.2. Query by an Element</a> <a href="#ref-for-htmlvideoelement④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-navigator">
+   <a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">https://html.spec.whatwg.org/multipage/system-state.html#navigator</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-navigator">2. The Autoplay Detection API</a> <a href="#ref-for-navigator①">(2)</a>
+    <li><a href="#ref-for-navigator②">2.2. The Autoplay Detection Methods</a>
+    <li><a href="#ref-for-navigator③">2.2.1. Query by a Media Type</a> <a href="#ref-for-navigator④">(2)</a> <a href="#ref-for-navigator⑤">(3)</a> <a href="#ref-for-navigator⑥">(4)</a> <a href="#ref-for-navigator⑦">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-window">
+   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-window">2. The Autoplay Detection API</a>
+    <li><a href="#ref-for-window①">2.2.1. Query by a Media Type</a> <a href="#ref-for-window②">(2)</a> <a href="#ref-for-window③">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-audio">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#audio">https://html.spec.whatwg.org/multipage/media.html#audio</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-audio">1. Introduction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-document-2">
+   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-document-2">2. The Autoplay Detection API</a>
+    <li><a href="#ref-for-dom-document-2①">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-document-2②">(2)</a> <a href="#ref-for-dom-document-2③">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-media-muted">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted">https://html.spec.whatwg.org/multipage/media.html#dom-media-muted</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-media-muted">2.1. Autoplay Policy Enum</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-media-play">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play">https://html.spec.whatwg.org/multipage/media.html#dom-media-play</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-media-play">2.2.2. Query by an Element</a> <a href="#ref-for-dom-media-play①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sticky-activation">
+   <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sticky-activation">3. Examples</a> <a href="#ref-for-sticky-activation①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-video">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#video">https://html.spec.whatwg.org/multipage/media.html#video</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-video">1. Introduction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-media-volume">
+   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume">https://html.spec.whatwg.org/multipage/media.html#dom-media-volume</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-media-volume">2.1. Autoplay Policy Enum</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-elementdef-image">
    <a href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image">https://svgwg.org/svg2-draft/embedded.html#elementdef-image</a><b>Referenced in:</b>
    <ul>
@@ -1069,6 +1163,22 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
+   <li>
+    <a data-link-type="biblio">[HTML]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-htmlaudioelement">HTMLAudioElement</span>
+     <li><span class="dfn-paneled" id="term-for-htmlmediaelement">HTMLMediaElement</span>
+     <li><span class="dfn-paneled" id="term-for-htmlvideoelement">HTMLVideoElement</span>
+     <li><span class="dfn-paneled" id="term-for-navigator">Navigator</span>
+     <li><span class="dfn-paneled" id="term-for-window">Window</span>
+     <li><span class="dfn-paneled" id="term-for-audio">audio</span>
+     <li><span class="dfn-paneled" id="term-for-dom-document-2">document</span>
+     <li><span class="dfn-paneled" id="term-for-dom-media-muted">muted</span>
+     <li><span class="dfn-paneled" id="term-for-dom-media-play">play()</span>
+     <li><span class="dfn-paneled" id="term-for-sticky-activation">sticky activation</span>
+     <li><span class="dfn-paneled" id="term-for-video">video</span>
+     <li><span class="dfn-paneled" id="term-for-dom-media-volume">volume</span>
+    </ul>
    <li>
     <a data-link-type="biblio">[SVG2]</a> defines the following terms:
     <ul>

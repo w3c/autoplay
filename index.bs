@@ -68,7 +68,7 @@ div.enum-description > table > thead > tr > th {
   Autoplay detection can be performed through the {{Navigator}} object. The
   result can either allow authors to know if media, which have the same type of
   the given media type and exist in the {{document}} contained in the
-  {{Window}} object asscociated with the queried {{Navigator}} object, are
+  {{Window}} object associated with the queried {{Navigator}} object, are
   allowed to autoplay, or to know if a specific element is allowed to autoplay.
 
   <h3 id="autoplay-policy">Autoplay Policy Enum</h3>
@@ -245,8 +245,8 @@ div.enum-description > table > thead > tr > th {
     <div class="note">
       Note: Depending on the implementation, if a document has child
       documents, then the result queried from the {{Navigator}} object
-      asscociated with the parent document could be different from the result
-      queried from the {{Navigator}} object asscociated with the child
+      associated with the parent document could be different from the result
+      queried from the {{Navigator}} object associated with the child
       documents.
     </div>
 

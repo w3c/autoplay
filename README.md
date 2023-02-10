@@ -144,6 +144,7 @@ Many thanks for valuable feedback and advice from
 - François Daoust
 - Frank Liberato
 - Gary Katsevman
+- Jean-Yves Avenard
 - Jer Noble
 - Mattias Buelens
 - Mounir Lamouri

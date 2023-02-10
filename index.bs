@@ -422,5 +422,6 @@ div.enum-description > table > thead > tr > th {
 
   The editors would like to thank Alastor Wu, Becca Hughes, Christoph Guttandin,
   Chris Needham, Chris Pearce, Dale Curtis, Eric Carlson, François Daoust,
-  Frank Liberato, Gary Katsevman, Jer Noble, Mattias Buelens, Mounir Lamouri,
-  Paul Adenot and Tom Jenkinson for their contributions to this specification.
+  Frank Liberato, Gary Katsevman, Jean-Yves Avenard, Jer Noble, Mattias Buelens,
+  Mounir Lamouri, Paul Adenot and Tom Jenkinson for their contributions to this
+  specification.

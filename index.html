@@ -5,10 +5,9 @@
   <title>Autoplay Policy Detection</title>
   <meta content="w3c/ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
+  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/autoplay-detection/" rel="canonical">
-  <meta content="d5c766ff7a793dcd3d71d2a116e62f5ccebea6d5" name="document-revision">
+  <meta content="7274f113875b815d6f4cb744d3373a4c31c7372a" name="document-revision">
 <style>
 @media (prefers-color-scheme: light) {
   :root {
@@ -40,8 +39,7 @@ div.enum-description > table > thead > tr > th {
 	border-bottom: 1px solid #707070;
 }
 </style>
-<style>/* style-autolinks */
-
+<style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -101,8 +99,17 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
-<style>/* style-colors */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+</style>
+<style>/* Boilerplate: style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
@@ -210,221 +217,7 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
-<style>/* style-counters */
-
-body {
-    counter-reset: example figure issue;
 }
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}</style>
-<style>/* style-dfn-panel */
-
-:root {
-    --dfnpanel-bg: #ddd;
-    --dfnpanel-text: var(--text);
-}
-.dfn-panel {
-    position: absolute;
-    z-index: 35;
-    height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
-    max-width: 300px;
-    max-height: 500px;
-    overflow: auto;
-    padding: 0.5em 0.75em;
-    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: var(--dfnpanel-bg);
-    color: var(--dfnpanel-text);
-    border: outset 0.2em;
-}
-.dfn-panel:not(.on) { display: none; }
-.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-.dfn-panel > b { display: block; }
-.dfn-panel a { color: var(--dfnpanel-text); }
-.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-.dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0; }
-.dfn-panel li { list-style: inside; }
-.dfn-panel.activated {
-    display: inline-block;
-    position: fixed;
-    left: .5em;
-    bottom: 2em;
-    margin: 0 auto;
-    max-width: calc(100vw - 1.5em - .4em - .5em);
-    max-height: 30vh;
-}
-
-.dfn-paneled { cursor: pointer; }
-</style>
-<style>/* style-issues */
-
-a[href].issue-return {
-    float: right;
-    float: inline-end;
-    color: var(--issueheading-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-</style>
-<style>/* style-md-lists */
-
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}</style>
-<style>/* style-selflinks */
-
-:root {
-    --selflink-text: white;
-    --selflink-bg: gray;
-    --selflink-hover-text: black;
-}
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-.example > a.self-link,
-.note > a.self-link,
-.issue > a.self-link {
-    /* These blocks are overflow:auto, so positioning outside
-       doesn't work. */
-    left: auto;
-    right: 0;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: var(--selflink-bg);
-    color: var(--selflink-text);
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: var(--selflink-hover-text);
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }
-</style>
-<style>/* style-syntax-highlighting */
-
-            pre.idl.highlight {
-                background: var(--borderedblock-bg, var(--def-bg));
-            }
-            
-code.highlight { padding: .1em; border-radius: .3em; }
-pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
-
-.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
-c-[a] { color: #990055 } /* Keyword.Declaration */
-c-[b] { color: #990055 } /* Keyword.Type */
-c-[c] { color: #708090 } /* Comment */
-c-[d] { color: #708090 } /* Comment.Multiline */
-c-[e] { color: #0077aa } /* Name.Attribute */
-c-[f] { color: #669900 } /* Name.Tag */
-c-[g] { color: #222222 } /* Name.Variable */
-c-[k] { color: #990055 } /* Keyword */
-c-[l] { color: #000000 } /* Literal */
-c-[m] { color: #000000 } /* Literal.Number */
-c-[n] { color: #0077aa } /* Name */
-c-[o] { color: #999999 } /* Operator */
-c-[p] { color: #999999 } /* Punctuation */
-c-[s] { color: #a67f59 } /* Literal.String */
-c-[t] { color: #a67f59 } /* Literal.String.Single */
-c-[u] { color: #a67f59 } /* Literal.String.Double */
-c-[cp] { color: #708090 } /* Comment.Preproc */
-c-[c1] { color: #708090 } /* Comment.Single */
-c-[cs] { color: #708090 } /* Comment.Special */
-c-[kc] { color: #990055 } /* Keyword.Constant */
-c-[kn] { color: #990055 } /* Keyword.Namespace */
-c-[kp] { color: #990055 } /* Keyword.Pseudo */
-c-[kr] { color: #990055 } /* Keyword.Reserved */
-c-[ld] { color: #000000 } /* Literal.Date */
-c-[nc] { color: #0077aa } /* Name.Class */
-c-[no] { color: #0077aa } /* Name.Constant */
-c-[nd] { color: #0077aa } /* Name.Decorator */
-c-[ni] { color: #0077aa } /* Name.Entity */
-c-[ne] { color: #0077aa } /* Name.Exception */
-c-[nf] { color: #0077aa } /* Name.Function */
-c-[nl] { color: #0077aa } /* Name.Label */
-c-[nn] { color: #0077aa } /* Name.Namespace */
-c-[py] { color: #0077aa } /* Name.Property */
-c-[ow] { color: #999999 } /* Operator.Word */
-c-[mb] { color: #000000 } /* Literal.Number.Bin */
-c-[mf] { color: #000000 } /* Literal.Number.Float */
-c-[mh] { color: #000000 } /* Literal.Number.Hex */
-c-[mi] { color: #000000 } /* Literal.Number.Integer */
-c-[mo] { color: #000000 } /* Literal.Number.Oct */
-c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
-c-[sc] { color: #a67f59 } /* Literal.String.Char */
-c-[sd] { color: #a67f59 } /* Literal.String.Doc */
-c-[se] { color: #a67f59 } /* Literal.String.Escape */
-c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
-c-[si] { color: #a67f59 } /* Literal.String.Interpol */
-c-[sx] { color: #a67f59 } /* Literal.String.Other */
-c-[sr] { color: #a67f59 } /* Literal.String.Regex */
-c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
-c-[vc] { color: #0077aa } /* Name.Variable.Class */
-c-[vg] { color: #0077aa } /* Name.Variable.Global */
-c-[vi] { color: #0077aa } /* Name.Variable.Instance */
-c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-</style>
-<style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -537,20 +330,288 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --selflink-text: black;
-        --selflink-bg: silver;
-        --selflink-hover-text: white;
-    }
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
 }
 
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
     }
 }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
+
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
 
@@ -618,7 +679,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Autoplay Policy Detection</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-02-10">10 February 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-07-04">4 July 2024</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -635,7 +696,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -651,8 +712,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <p> This document was published by the <a href="https://www.w3.org/groups/wg/media">Media Working Group</a> as an Editor’s Draft.
   This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. </p>
    <p> Publication as an Editor’s Draft does not imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p>
-   <p> This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/Consortium/Patent-Policy/" id="sotd_patent">W3C Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/media/ipr" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
-   <p> This document is governed by the <a href="https://www.w3.org/2021/Process-20211102/" id="w3c_process_revision">2 November 2021 W3C Process Document</a>. </p>
+   <p> This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/policies/patent-policy/" id="sotd_patent">W3C Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/media/ipr" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
+   <p> This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>. </p>
    <p></p>
   </div>
   <div data-fill-with="at-risk"></div>
@@ -994,20 +1055,22 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     with <code>class="note"</code>,
     like this: </p>
    <p class="note" role="note">Note, this is an informative note.</p>
-   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
-   <p>Requirements phrased in the imperative as part of algorithms
+   <section>
+    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+    <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
     or "return false and abort these steps")
     are to be interpreted with the meaning of the key word
     ("must", "should", "may", etc)
     used in introducing the algorithm. </p>
-   <p>Conformance requirements phrased as algorithms or specific steps
+    <p>Conformance requirements phrased as algorithms or specific steps
     can be implemented in any manner,
     so long as the end result is equivalent.
     In particular, the algorithms defined in this specification
     are intended to be easy to understand
     and are not intended to be performant.
     Implementers are encouraged to optimize. </p>
+   </section>
   </div>
 <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
@@ -1031,173 +1094,42 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <li><a href="#dom-autoplaypolicymediatype-mediaelement">"mediaelement"</a><span>, in § 2.2</span>
    <li><a href="#dom-autoplaypolicymediatype-mediaelement">mediaelement</a><span>, in § 2.2</span>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-htmlaudioelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement">https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlaudioelement">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-htmlaudioelement①">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-htmlaudioelement②">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-htmlaudioelement③">2.2.2. Query by an Element</a> <a href="#ref-for-htmlaudioelement④">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-htmlmediaelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement">https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlmediaelement">1. Introduction</a>
-    <li><a href="#ref-for-htmlmediaelement①">2.1. Autoplay Policy Enum</a> <a href="#ref-for-htmlmediaelement②">(2)</a>
-    <li><a href="#ref-for-htmlmediaelement③">2.2. The Autoplay Detection Methods</a> <a href="#ref-for-htmlmediaelement④">(2)</a>
-    <li><a href="#ref-for-htmlmediaelement⑤">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-htmlmediaelement⑥">2.2.2. Query by an Element</a> <a href="#ref-for-htmlmediaelement⑦">(2)</a> <a href="#ref-for-htmlmediaelement⑧">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-htmlvideoelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlvideoelement">2.1. Autoplay Policy Enum</a>
-    <li><a href="#ref-for-htmlvideoelement①">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-htmlvideoelement②">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-htmlvideoelement③">2.2.2. Query by an Element</a> <a href="#ref-for-htmlvideoelement④">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-navigator">
-   <a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">https://html.spec.whatwg.org/multipage/system-state.html#navigator</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-navigator">2. The Autoplay Detection API</a> <a href="#ref-for-navigator①">(2)</a>
-    <li><a href="#ref-for-navigator②">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-navigator③">2.2.1. Query by a Media Type</a> <a href="#ref-for-navigator④">(2)</a> <a href="#ref-for-navigator⑤">(3)</a> <a href="#ref-for-navigator⑥">(4)</a> <a href="#ref-for-navigator⑦">(5)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-window">
-   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-window">2. The Autoplay Detection API</a>
-    <li><a href="#ref-for-window①">2.2.1. Query by a Media Type</a> <a href="#ref-for-window②">(2)</a> <a href="#ref-for-window③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-audio">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#audio">https://html.spec.whatwg.org/multipage/media.html#audio</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-audio">1. Introduction</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-document-2">
-   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-document-2">2. The Autoplay Detection API</a>
-    <li><a href="#ref-for-dom-document-2①">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-document-2②">(2)</a> <a href="#ref-for-dom-document-2③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-muted">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-muted">https://html.spec.whatwg.org/multipage/media.html#dom-media-muted</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-muted">2.1. Autoplay Policy Enum</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-play">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-play">https://html.spec.whatwg.org/multipage/media.html#dom-media-play</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-play">2.2.2. Query by an Element</a> <a href="#ref-for-dom-media-play①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-sticky-activation">
-   <a href="https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation">https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-sticky-activation">3. Examples</a> <a href="#ref-for-sticky-activation①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-video">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#video">https://html.spec.whatwg.org/multipage/media.html#video</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-video">1. Introduction</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-volume">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-volume">https://html.spec.whatwg.org/multipage/media.html#dom-media-volume</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-volume">2.1. Autoplay Policy Enum</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-elementdef-image">
-   <a href="https://svgwg.org/svg2-draft/embedded.html#elementdef-image">https://svgwg.org/svg2-draft/embedded.html#elementdef-image</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-elementdef-image">1. Introduction</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-AudioContext">
-   <a href="https://webaudio.github.io/web-audio-api/#AudioContext">https://webaudio.github.io/web-audio-api/#AudioContext</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-AudioContext">2.2. The Autoplay Detection Methods</a> <a href="#ref-for-AudioContext①">(2)</a>
-    <li><a href="#ref-for-AudioContext②">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-AudioContext③">2.2.2. Query by an Element</a> <a href="#ref-for-AudioContext④">(2)</a>
-    <li><a href="#ref-for-AudioContext⑤">3. Examples</a> <a href="#ref-for-AudioContext⑥">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-enumdef-audiocontextstate">
-   <a href="https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate">https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-audiocontextstate">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-audiocontextstate-suspended">
-   <a href="https://webaudio.github.io/web-audio-api/#dom-audiocontextstate-suspended">https://webaudio.github.io/web-audio-api/#dom-audiocontextstate-suspended</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-audiocontextstate-suspended">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-Exposed">
-   <a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-Exposed">2.2. The Autoplay Detection Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-notallowederror">
-   <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-notallowederror">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
-   <a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-exceptiondef-typeerror">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-htmlaudioelement">HTMLAudioElement</span>
-     <li><span class="dfn-paneled" id="term-for-htmlmediaelement">HTMLMediaElement</span>
-     <li><span class="dfn-paneled" id="term-for-htmlvideoelement">HTMLVideoElement</span>
-     <li><span class="dfn-paneled" id="term-for-navigator">Navigator</span>
-     <li><span class="dfn-paneled" id="term-for-window">Window</span>
-     <li><span class="dfn-paneled" id="term-for-audio">audio</span>
-     <li><span class="dfn-paneled" id="term-for-dom-document-2">document</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-muted">muted</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-play">play()</span>
-     <li><span class="dfn-paneled" id="term-for-sticky-activation">sticky activation</span>
-     <li><span class="dfn-paneled" id="term-for-video">video</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-volume">volume</span>
+     <li><span class="dfn-paneled" id="fe2a6718">HTMLAudioElement</span>
+     <li><span class="dfn-paneled" id="1076ec40">HTMLMediaElement</span>
+     <li><span class="dfn-paneled" id="f57f330b">HTMLVideoElement</span>
+     <li><span class="dfn-paneled" id="be0c27b2">Navigator</span>
+     <li><span class="dfn-paneled" id="5d7209e9">Window</span>
+     <li><span class="dfn-paneled" id="2c82d279">audio</span>
+     <li><span class="dfn-paneled" id="04e0443f">document</span>
+     <li><span class="dfn-paneled" id="8d87f944">muted</span>
+     <li><span class="dfn-paneled" id="613edb27">play()</span>
+     <li><span class="dfn-paneled" id="ca96a59c">sticky activation</span>
+     <li><span class="dfn-paneled" id="aa7bbf63">video</span>
+     <li><span class="dfn-paneled" id="5078a29a">volume</span>
     </ul>
    <li>
     <a data-link-type="biblio">[SVG2]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-elementdef-image">image</span>
+     <li><span class="dfn-paneled" id="11a8832d">image</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBAUDIO]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-AudioContext">AudioContext</span>
-     <li><span class="dfn-paneled" id="term-for-enumdef-audiocontextstate">AudioContextState</span>
-     <li><span class="dfn-paneled" id="term-for-dom-audiocontextstate-suspended">suspended</span>
+     <li><span class="dfn-paneled" id="fabc7040">AudioContext</span>
+     <li><span class="dfn-paneled" id="58a23412">AudioContextState</span>
+     <li><span class="dfn-paneled" id="083955e1">suspended</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
-     <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
-     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
+     <li><span class="dfn-paneled" id="889e932f">Exposed</span>
+     <li><span class="dfn-paneled" id="ba556545">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="82ca3efc">TypeError</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1238,140 +1170,539 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 };
 
 </pre>
-  <aside class="dfn-panel" data-for="enumdef-autoplaypolicy">
-   <b><a href="#enumdef-autoplaypolicy">#enumdef-autoplaypolicy</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-autoplaypolicy">2.2. The Autoplay Detection Methods</a> <a href="#ref-for-enumdef-autoplaypolicy①">(2)</a> <a href="#ref-for-enumdef-autoplaypolicy②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-autoplaypolicy-allowed">
-   <b><a href="#dom-autoplaypolicy-allowed">#dom-autoplaypolicy-allowed</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed">2.1. Autoplay Policy Enum</a> <a href="#ref-for-dom-autoplaypolicy-allowed①">(2)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed②">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-autoplaypolicy-allowed③">(2)</a> <a href="#ref-for-dom-autoplaypolicy-allowed④">(3)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed⑤">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-autoplaypolicy-allowed-muted">
-   <b><a href="#dom-autoplaypolicy-allowed-muted">#dom-autoplaypolicy-allowed-muted</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted">2.1. Autoplay Policy Enum</a> <a href="#ref-for-dom-autoplaypolicy-allowed-muted①">(2)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted②">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-allowed-muted③">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-autoplaypolicy-inaudible-media-element">
-   <b><a href="#dom-autoplaypolicy-inaudible-media-element">#dom-autoplaypolicy-inaudible-media-element</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-inaudible-media-element">2.2.1. Query by a Media Type</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-inaudible-media-element①">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-autoplaypolicy-disallowed">
-   <b><a href="#dom-autoplaypolicy-disallowed">#dom-autoplaypolicy-disallowed</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-autoplaypolicy-disallowed">2.1. Autoplay Policy Enum</a> <a href="#ref-for-dom-autoplaypolicy-disallowed①">(2)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-disallowed②">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-autoplaypolicy-disallowed③">(2)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed④">(3)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑤">(4)</a> <a href="#ref-for-dom-autoplaypolicy-disallowed⑥">(5)</a>
-    <li><a href="#ref-for-dom-autoplaypolicy-disallowed⑦">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="enumdef-autoplaypolicymediatype">
-   <b><a href="#enumdef-autoplaypolicymediatype">#enumdef-autoplaypolicymediatype</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-autoplaypolicymediatype">2.2. The Autoplay Detection Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-navigator-getautoplaypolicy">
-   <b><a href="#dom-navigator-getautoplaypolicy">#dom-navigator-getautoplaypolicy</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-navigator-getautoplaypolicy">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-navigator-getautoplaypolicy①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-navigator-getautoplaypolicy-type-type">
-   <b><a href="#dom-navigator-getautoplaypolicy-type-type">#dom-navigator-getautoplaypolicy-type-type</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-navigator-getautoplaypolicy-type-type">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-navigator-getautoplaypolicy-type-type①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-navigator-getautoplaypolicy-element">
-   <b><a href="#dom-navigator-getautoplaypolicy-element">#dom-navigator-getautoplaypolicy-element</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-navigator-getautoplaypolicy-element">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-navigator-getautoplaypolicy-context">
-   <b><a href="#dom-navigator-getautoplaypolicy-context">#dom-navigator-getautoplaypolicy-context</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-navigator-getautoplaypolicy-context">2.2.2. Query by an Element</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-autoplaypolicymediatype-mediaelement">
-   <b><a href="#dom-autoplaypolicymediatype-mediaelement">#dom-autoplaypolicymediatype-mediaelement</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-autoplaypolicymediatype-mediaelement">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-dom-autoplaypolicymediatype-mediaelement①">2.2.1. Query by a Media Type</a> <a href="#ref-for-dom-autoplaypolicymediatype-mediaelement②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-autoplaypolicymediatype-audiocontext">
-   <b><a href="#dom-autoplaypolicymediatype-audiocontext">#dom-autoplaypolicymediatype-audiocontext</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-autoplaypolicymediatype-audiocontext">2.2. The Autoplay Detection Methods</a>
-    <li><a href="#ref-for-dom-autoplaypolicymediatype-audiocontext①">2.2.1. Query by a Media Type</a>
-   </ul>
-  </aside>
-<script>/* script-dfn-panel */
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
 
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
-    if(target != "dfn-panel") {
-        // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
             }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
         }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
     }
 
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['fe2a6718'] = {"dfnID": "fe2a6718", "url": "https://html.spec.whatwg.org/multipage/media.html#htmlaudioelement", "dfnText": "HTMLAudioElement", "refSections": [{"refs": [{"id": "ref-for-htmlaudioelement"}], "title": "2.1. Autoplay Policy Enum"}, {"refs": [{"id": "ref-for-htmlaudioelement\u2460"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-htmlaudioelement\u2461"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-htmlaudioelement\u2462"}, {"id": "ref-for-htmlaudioelement\u2463"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['1076ec40'] = {"dfnID": "1076ec40", "url": "https://html.spec.whatwg.org/multipage/media.html#htmlmediaelement", "dfnText": "HTMLMediaElement", "refSections": [{"refs": [{"id": "ref-for-htmlmediaelement"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-htmlmediaelement\u2460"}, {"id": "ref-for-htmlmediaelement\u2461"}], "title": "2.1. Autoplay Policy Enum"}, {"refs": [{"id": "ref-for-htmlmediaelement\u2462"}, {"id": "ref-for-htmlmediaelement\u2463"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-htmlmediaelement\u2464"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-htmlmediaelement\u2465"}, {"id": "ref-for-htmlmediaelement\u2466"}, {"id": "ref-for-htmlmediaelement\u2467"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['f57f330b'] = {"dfnID": "f57f330b", "url": "https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement", "dfnText": "HTMLVideoElement", "refSections": [{"refs": [{"id": "ref-for-htmlvideoelement"}], "title": "2.1. Autoplay Policy Enum"}, {"refs": [{"id": "ref-for-htmlvideoelement\u2460"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-htmlvideoelement\u2461"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-htmlvideoelement\u2462"}, {"id": "ref-for-htmlvideoelement\u2463"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['be0c27b2'] = {"dfnID": "be0c27b2", "url": "https://html.spec.whatwg.org/multipage/system-state.html#navigator", "dfnText": "Navigator", "refSections": [{"refs": [{"id": "ref-for-navigator"}, {"id": "ref-for-navigator\u2460"}], "title": "2. The Autoplay Detection API"}, {"refs": [{"id": "ref-for-navigator\u2461"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-navigator\u2462"}, {"id": "ref-for-navigator\u2463"}, {"id": "ref-for-navigator\u2464"}, {"id": "ref-for-navigator\u2465"}, {"id": "ref-for-navigator\u2466"}], "title": "2.2.1. Query by a Media Type"}], "external": true};
+window.dfnpanelData['5d7209e9'] = {"dfnID": "5d7209e9", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window", "dfnText": "Window", "refSections": [{"refs": [{"id": "ref-for-window"}], "title": "2. The Autoplay Detection API"}, {"refs": [{"id": "ref-for-window\u2460"}, {"id": "ref-for-window\u2461"}, {"id": "ref-for-window\u2462"}], "title": "2.2.1. Query by a Media Type"}], "external": true};
+window.dfnpanelData['2c82d279'] = {"dfnID": "2c82d279", "url": "https://html.spec.whatwg.org/multipage/media.html#audio", "dfnText": "audio", "refSections": [{"refs": [{"id": "ref-for-audio"}], "title": "1. Introduction"}], "external": true};
+window.dfnpanelData['04e0443f'] = {"dfnID": "04e0443f", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-document-2", "dfnText": "document", "refSections": [{"refs": [{"id": "ref-for-dom-document-2"}], "title": "2. The Autoplay Detection API"}, {"refs": [{"id": "ref-for-dom-document-2\u2460"}, {"id": "ref-for-dom-document-2\u2461"}, {"id": "ref-for-dom-document-2\u2462"}], "title": "2.2.1. Query by a Media Type"}], "external": true};
+window.dfnpanelData['8d87f944'] = {"dfnID": "8d87f944", "url": "https://html.spec.whatwg.org/multipage/media.html#dom-media-muted", "dfnText": "muted", "refSections": [{"refs": [{"id": "ref-for-dom-media-muted"}], "title": "2.1. Autoplay Policy Enum"}], "external": true};
+window.dfnpanelData['613edb27'] = {"dfnID": "613edb27", "url": "https://html.spec.whatwg.org/multipage/media.html#dom-media-play", "dfnText": "play()", "refSections": [{"refs": [{"id": "ref-for-dom-media-play"}, {"id": "ref-for-dom-media-play\u2460"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['ca96a59c'] = {"dfnID": "ca96a59c", "url": "https://html.spec.whatwg.org/multipage/interaction.html#sticky-activation", "dfnText": "sticky activation", "refSections": [{"refs": [{"id": "ref-for-sticky-activation"}, {"id": "ref-for-sticky-activation\u2460"}], "title": "3. Examples"}], "external": true};
+window.dfnpanelData['aa7bbf63'] = {"dfnID": "aa7bbf63", "url": "https://html.spec.whatwg.org/multipage/media.html#video", "dfnText": "video", "refSections": [{"refs": [{"id": "ref-for-video"}], "title": "1. Introduction"}], "external": true};
+window.dfnpanelData['5078a29a'] = {"dfnID": "5078a29a", "url": "https://html.spec.whatwg.org/multipage/media.html#dom-media-volume", "dfnText": "volume", "refSections": [{"refs": [{"id": "ref-for-dom-media-volume"}], "title": "2.1. Autoplay Policy Enum"}], "external": true};
+window.dfnpanelData['11a8832d'] = {"dfnID": "11a8832d", "url": "https://svgwg.org/svg2-draft/embedded.html#elementdef-image", "dfnText": "image", "refSections": [{"refs": [{"id": "ref-for-elementdef-image"}], "title": "1. Introduction"}], "external": true};
+window.dfnpanelData['fabc7040'] = {"dfnID": "fabc7040", "url": "https://webaudio.github.io/web-audio-api/#AudioContext", "dfnText": "AudioContext", "refSections": [{"refs": [{"id": "ref-for-AudioContext"}, {"id": "ref-for-AudioContext\u2460"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-AudioContext\u2461"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-AudioContext\u2462"}, {"id": "ref-for-AudioContext\u2463"}], "title": "2.2.2. Query by an Element"}, {"refs": [{"id": "ref-for-AudioContext\u2464"}, {"id": "ref-for-AudioContext\u2465"}], "title": "3. Examples"}], "external": true};
+window.dfnpanelData['58a23412'] = {"dfnID": "58a23412", "url": "https://webaudio.github.io/web-audio-api/#enumdef-audiocontextstate", "dfnText": "AudioContextState", "refSections": [{"refs": [{"id": "ref-for-enumdef-audiocontextstate"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['083955e1'] = {"dfnID": "083955e1", "url": "https://webaudio.github.io/web-audio-api/#dom-audiocontextstate-suspended", "dfnText": "suspended", "refSections": [{"refs": [{"id": "ref-for-dom-audiocontextstate-suspended"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['889e932f'] = {"dfnID": "889e932f", "url": "https://webidl.spec.whatwg.org/#Exposed", "dfnText": "Exposed", "refSections": [{"refs": [{"id": "ref-for-Exposed"}], "title": "2.2. The Autoplay Detection Methods"}], "external": true};
+window.dfnpanelData['ba556545'] = {"dfnID": "ba556545", "url": "https://webidl.spec.whatwg.org/#notallowederror", "dfnText": "NotAllowedError", "refSections": [{"refs": [{"id": "ref-for-notallowederror"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['82ca3efc'] = {"dfnID": "82ca3efc", "url": "https://webidl.spec.whatwg.org/#exceptiondef-typeerror", "dfnText": "TypeError", "refSections": [{"refs": [{"id": "ref-for-exceptiondef-typeerror"}], "title": "2.2.2. Query by an Element"}], "external": true};
+window.dfnpanelData['enumdef-autoplaypolicy'] = {"dfnID": "enumdef-autoplaypolicy", "url": "#enumdef-autoplaypolicy", "dfnText": "AutoplayPolicy", "refSections": [{"refs": [{"id": "ref-for-enumdef-autoplaypolicy"}, {"id": "ref-for-enumdef-autoplaypolicy\u2460"}, {"id": "ref-for-enumdef-autoplaypolicy\u2461"}], "title": "2.2. The Autoplay Detection Methods"}], "external": false};
+window.dfnpanelData['dom-autoplaypolicy-allowed'] = {"dfnID": "dom-autoplaypolicy-allowed", "url": "#dom-autoplaypolicy-allowed", "dfnText": "allowed", "refSections": [{"refs": [{"id": "ref-for-dom-autoplaypolicy-allowed"}, {"id": "ref-for-dom-autoplaypolicy-allowed\u2460"}], "title": "2.1. Autoplay Policy Enum"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-allowed\u2461"}, {"id": "ref-for-dom-autoplaypolicy-allowed\u2462"}, {"id": "ref-for-dom-autoplaypolicy-allowed\u2463"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-allowed\u2464"}], "title": "2.2.2. Query by an Element"}], "external": false};
+window.dfnpanelData['dom-autoplaypolicy-allowed-muted'] = {"dfnID": "dom-autoplaypolicy-allowed-muted", "url": "#dom-autoplaypolicy-allowed-muted", "dfnText": "allowed-muted", "refSections": [{"refs": [{"id": "ref-for-dom-autoplaypolicy-allowed-muted"}, {"id": "ref-for-dom-autoplaypolicy-allowed-muted\u2460"}], "title": "2.1. Autoplay Policy Enum"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-allowed-muted\u2461"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-allowed-muted\u2462"}], "title": "2.2.2. Query by an Element"}], "external": false};
+window.dfnpanelData['dom-autoplaypolicy-inaudible-media-element'] = {"dfnID": "dom-autoplaypolicy-inaudible-media-element", "url": "#dom-autoplaypolicy-inaudible-media-element", "dfnText": "inaudible media element", "refSections": [{"refs": [{"id": "ref-for-dom-autoplaypolicy-inaudible-media-element"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-inaudible-media-element\u2460"}], "title": "2.2.2. Query by an Element"}], "external": false};
+window.dfnpanelData['dom-autoplaypolicy-disallowed'] = {"dfnID": "dom-autoplaypolicy-disallowed", "url": "#dom-autoplaypolicy-disallowed", "dfnText": "disallowed", "refSections": [{"refs": [{"id": "ref-for-dom-autoplaypolicy-disallowed"}, {"id": "ref-for-dom-autoplaypolicy-disallowed\u2460"}], "title": "2.1. Autoplay Policy Enum"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-disallowed\u2461"}, {"id": "ref-for-dom-autoplaypolicy-disallowed\u2462"}, {"id": "ref-for-dom-autoplaypolicy-disallowed\u2463"}, {"id": "ref-for-dom-autoplaypolicy-disallowed\u2464"}, {"id": "ref-for-dom-autoplaypolicy-disallowed\u2465"}], "title": "2.2.1. Query by a Media Type"}, {"refs": [{"id": "ref-for-dom-autoplaypolicy-disallowed\u2466"}], "title": "2.2.2. Query by an Element"}], "external": false};
+window.dfnpanelData['enumdef-autoplaypolicymediatype'] = {"dfnID": "enumdef-autoplaypolicymediatype", "url": "#enumdef-autoplaypolicymediatype", "dfnText": "AutoplayPolicyMediaType", "refSections": [{"refs": [{"id": "ref-for-enumdef-autoplaypolicymediatype"}], "title": "2.2. The Autoplay Detection Methods"}], "external": false};
+window.dfnpanelData['dom-navigator-getautoplaypolicy'] = {"dfnID": "dom-navigator-getautoplaypolicy", "url": "#dom-navigator-getautoplaypolicy", "dfnText": "getAutoplayPolicy", "refSections": [{"refs": [{"id": "ref-for-dom-navigator-getautoplaypolicy"}, {"id": "ref-for-dom-navigator-getautoplaypolicy\u2460"}], "title": "2.2.1. Query by a Media Type"}], "external": false};
+window.dfnpanelData['dom-navigator-getautoplaypolicy-type-type'] = {"dfnID": "dom-navigator-getautoplaypolicy-type-type", "url": "#dom-navigator-getautoplaypolicy-type-type", "dfnText": "type", "refSections": [{"refs": [{"id": "ref-for-dom-navigator-getautoplaypolicy-type-type"}, {"id": "ref-for-dom-navigator-getautoplaypolicy-type-type\u2460"}], "title": "2.2.1. Query by a Media Type"}], "external": false};
+window.dfnpanelData['dom-navigator-getautoplaypolicy-element'] = {"dfnID": "dom-navigator-getautoplaypolicy-element", "url": "#dom-navigator-getautoplaypolicy-element", "dfnText": "getAutoplayPolicy", "refSections": [{"refs": [{"id": "ref-for-dom-navigator-getautoplaypolicy-element"}], "title": "2.2.2. Query by an Element"}], "external": false};
+window.dfnpanelData['dom-navigator-getautoplaypolicy-context'] = {"dfnID": "dom-navigator-getautoplaypolicy-context", "url": "#dom-navigator-getautoplaypolicy-context", "dfnText": "getAutoplayPolicy", "refSections": [{"refs": [{"id": "ref-for-dom-navigator-getautoplaypolicy-context"}], "title": "2.2.2. Query by an Element"}], "external": false};
+window.dfnpanelData['dom-autoplaypolicymediatype-mediaelement'] = {"dfnID": "dom-autoplaypolicymediatype-mediaelement", "url": "#dom-autoplaypolicymediatype-mediaelement", "dfnText": "mediaelement", "refSections": [{"refs": [{"id": "ref-for-dom-autoplaypolicymediatype-mediaelement"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-dom-autoplaypolicymediatype-mediaelement\u2460"}, {"id": "ref-for-dom-autoplaypolicymediatype-mediaelement\u2461"}], "title": "2.2.1. Query by a Media Type"}], "external": false};
+window.dfnpanelData['dom-autoplaypolicymediatype-audiocontext'] = {"dfnID": "dom-autoplaypolicymediatype-audiocontext", "url": "#dom-autoplaypolicymediatype-audiocontext", "dfnText": "audiocontext", "refSections": [{"refs": [{"id": "ref-for-dom-autoplaypolicymediatype-audiocontext"}], "title": "2.2. The Autoplay Detection Methods"}, {"refs": [{"id": "ref-for-dom-autoplaypolicymediatype-audiocontext\u2460"}], "title": "2.2.1. Query by a Media Type"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
 });
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}
 </script>

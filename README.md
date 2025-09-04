@@ -128,7 +128,7 @@ if (navigator.getAutoplayPolicy(ac) === "allowed") {
 - Chrome : Positive
 - Edge : No public signal
 - Firefox : Shipping on Nightly
-- Safari : Positive
+- Safari : [Positive](https://github.com/WebKit/standards-positions/issues/113)
 
 ## References & acknowledgements
 

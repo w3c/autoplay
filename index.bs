@@ -262,7 +262,7 @@ div.enum-description > table > thead > tr > th {
       finer-grained autoplay control.
     </div>
 
-  <h4 id="query-by-a-element">Query by an Element</h3>
+  <h4 id="query-by-a-element">Query by an Element</h4>
     The {{getAutoplayPolicy(element)}} and {{getAutoplayPolicy(context)}}
     methods return the current status of whether the given element is allowed
     to autoplay or not.

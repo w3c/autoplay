@@ -486,6 +486,22 @@ div.enum-description > table > thead > tr > th {
     and the "autoplay" [=policy-controlled feature=] lets the embedder control
     this.
 
+  <h3 id="privacy-intervention">Telling a page about an autoplay decision</h3>
+    The user agent can block autoplay to protect the user, for example from an
+    intrusive advertisement. If the page knows about the block, the page can
+    show other intrusive content. In this case, the block does not help the
+    user.
+
+    But a page can already learn about the block when it tries to play media,
+    as [[#privacy-fingerprinting]] describes. This API only gives the result
+    earlier. This also helps the user, because the page can start muted
+    playback or show a play button.
+
+    The user agent cannot protect the user only by blocking autoplay, because a
+    page can always learn about the block. To protect the user from intrusive
+    content, the user agent can use other protections, for example content
+    blocking.
+
 <h2 id="security">Security Considerations</h2>
   The API introduced in this specification does not expose any ability to
   control sensors or other devices of the user. It does not allow an origin to

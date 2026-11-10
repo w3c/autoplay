@@ -13,6 +13,7 @@ Markup Shorthands: markdown on
 </pre>
 
 <pre class=link-defaults>
+spec:storage; type:dfn; text:storage key
 spec:html; type:attribute; text:document
 </pre>
 
@@ -404,18 +405,109 @@ div.enum-description > table > thead > tr > th {
     </pre>
   </div>
 
-<h2 id="security-and-privacy">Security and Privacy Considerations</h2>
+<h2 id="privacy" oldids="security-and-privacy">Privacy Considerations</h2>
   Per the [[security-privacy-questionnaire#questions]].
 
-  The API introduced in this specification has very low impact with regards to
-  security and privacy. It does not expose any sensitive information that can be
-  used to to identify users. It does not expose any ability to control sensors
-  and any users' devices. It does not introduce any new state for an origin that
-  will persist across browsing sessions. It does not allow an origin to send any
-  data to the underlying platform. It does not introduce or enable new script
-  execution and loading mechanism. It does not allow an origin to draw over a
-  user agent's native UI. It does not allow an origin to detect if users are in
-  the private or non-private browsing mode.
+  The API introduced in this specification does not store new state for an
+  origin. But the user agent can use stored state to decide the result, for
+  example a site permission or a record of past media playback on a site. If
+  this state stays after the user clears site data, the result can show the
+  site that media played on it before. To prevent this, the user agent can
+  clear this state together with other site data.
+
+  The API does not tell a page if the user uses a private browsing mode. But if
+  the user agent uses different inputs in a private browsing mode, for example
+  no stored site permissions, the result can be different in that mode. To
+  prevent this, the user agent can use, in a private browsing mode, the same
+  inputs as in a new profile with default settings.
+
+  <h3 id="privacy-fingerprinting">Fingerprinting</h3>
+    The result of
+    <a href="#autoplay-detection-methods"><code>getAutoplayPolicy()</code></a>
+    depends on the inputs that the user agent uses to decide if media can
+    autoplay. Some of these inputs can be different for different users.
+    Examples are a browser setting, a site permission, and a platform setting
+    such as a data saving mode. A page can learn about these inputs from the
+    result. This adds to the fingerprinting surface of the user agent
+    [[FINGERPRINTING-GUIDANCE]].
+
+    The
+    <a href="https://www.w3.org/TR/fingerprinting-guidance/#identifying">severity
+    factors</a> in [[FINGERPRINTING-GUIDANCE]] for this API
+    are:
+
+    * Entropy: each query has only three possible values. A page can query for
+        {{HTMLMediaElement}} and for {{AudioContext}}.
+    * Detectability: a query does not play media, so the user cannot see it.
+    * Persistence: most inputs stay the same until the user changes them, for
+        example a browser setting or a site permission. The user can change
+        these inputs, and this changes the result.
+    * Availability: all documents, including documents in third-party iframes,
+        can call the method. The call needs no permission and no user activation.
+    * Scope: a browser setting or a platform setting gives the same result to
+        all sites. A site permission affects the result for one site only.
+
+    A page can learn the same information without this API. The page can call
+    {{HTMLMediaElement/play()}} on an {{inaudible media element}} and on an
+    audible media element, and check which returned promise rejects with
+    "{{NotAllowedError}}" {{DOMException}}. The page can also create an
+    {{AudioContext}} and check if its {{BaseAudioContext/state}} changes to
+    {{AudioContextState/"running"}}. These methods need more steps, they can
+    start playback, and the user agent can show them to the user.
+
+    To limit the fingerprinting surface, the user agent can use only the inputs
+    that also decide if media in the document can start playback. In this case,
+    the result does not give more information than a page can learn when it
+    plays media.
+
+  <h3 id="privacy-cross-site">Cross-site information</h3>
+    The user agent can use the state of other documents to decide if media can
+    autoplay. If the result of
+    <a href="#autoplay-detection-methods"><code>getAutoplayPolicy()</code></a>
+    depends on this state, a page can learn about the activity of the user in
+    documents that the page cannot see. This is a cross-site information leak.
+
+    For example, the user agent can allow autoplay on a site where the user
+    played media before. A page of that site can also be in a third-party
+    iframe. If the user agent decides the result for that page from the record
+    of playback that the site made as a top-level document, the page learns
+    about the activity of the user in another partition.
+
+    To prevent this leak, the user agent can partition the state that it uses
+    for the decision in the same way as it partitions storage. In this case, the
+    result for a page depends only on state with the same [=storage key=] as
+    the page. The result then does not tell the page more than the page can
+    already learn from its own storage.
+
+    The user agent can also use the state of an ancestor of the page, for
+    example of its top-level document. In the example in
+    [[#query-by-a-media-type]], an iframe inherits the result of its top-level
+    document. This is acceptable, because the embedder chose to embed the page,
+    and the "autoplay" [=policy-controlled feature=] lets the embedder control
+    this.
+
+  <h3 id="privacy-intervention">Telling a page about an autoplay decision</h3>
+    The user agent can block autoplay to protect the user, for example from an
+    intrusive advertisement. If the page knows about the block, the page can
+    show other intrusive content. In this case, the block does not help the
+    user.
+
+    But a page can already learn about the block when it tries to play media,
+    as [[#privacy-fingerprinting]] describes. This API only gives the result
+    earlier. This also helps the user, because the page can start muted
+    playback or show a play button.
+
+    The user agent cannot protect the user only by blocking autoplay, because a
+    page can always learn about the block. To protect the user from intrusive
+    content, the user agent can use other protections, for example content
+    blocking.
+
+<h2 id="security">Security Considerations</h2>
+  The API introduced in this specification does not expose any ability to
+  control sensors or other devices of the user. It does not allow an origin to
+  send any data to the underlying platform. It does not introduce or enable new
+  script execution or loading mechanisms. It does not allow an origin to draw
+  over a user agent's native UI.
 
 <h2 id="acknowledgements">Acknowledgments</h2>
   This specification is the collective work of the <a href="https://www.w3.org/media-wg/">W3C media Working Group</a>.

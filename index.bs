@@ -337,18 +337,17 @@ div.enum-description > table > thead > tr > th {
     uses [=sticky activation=] to determine if {{AudioContext}} can be allowed
     to start.
     <pre class="lang-javascript">
-      if (navigator.getAutoplayPolicy("audiocontext") === "allowed") {
-        let ac = new AudioContext();
-        ac.onstatechange = function() {
-          if (ac.state === "running") {
-            // Start running audio app.
-          }
+      const policy = navigator.getAutoplayPolicy("audiocontext");
+      const ac = new AudioContext();
+      ac.onstatechange = function() {
+        if (ac.state === "running") {
+          // Start running audio app.
         }
-      } else {
-        // Audio context is not allowed to start. Display a bit of UI to ask
-        // users to start the audio app. Audio starts via calling ac.resume()
-        // from a handler, and 'onstatechange' allows knowing when the audio
-        // stack is ready.
+      };
+      if (policy !== "allowed") {
+        // Display UI asking the user to start the audio app. Call ac.resume()
+        // from its user gesture handler. 'onstatechange' indicates when the
+        // audio stack is ready.
       }
     </pre>
   </div>
